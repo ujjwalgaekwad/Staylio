@@ -8,6 +8,20 @@ interface FooterProps {
 }
 
 const Footer = ({ isPrimary }: FooterProps) => {
+  const socials = [
+    {
+      id: "instagram",
+      media: "instagram"
+    },
+    {
+      id: "facebook",
+      media: "facebook",
+    },
+    {
+      id: "linkedln",
+      media: ""
+    }
+  ]
   return (
     <div
       className={cn(
