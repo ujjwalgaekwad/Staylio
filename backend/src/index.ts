@@ -1,9 +1,10 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
 import "dotenv/config";
-import registerRouter from "./routes/user.routes";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./db";
+import registerRouter from "./routes/user.routes";
+import authRouter from "./routes/auth.routes";
 
 connectDB();
 
@@ -19,6 +20,7 @@ app.use(
 app.use(express.json({ limit: "20kb" }));
 app.use(express.urlencoded({ extended: true, limit: "20kb" }));
 app.use(cookieParser());
+app.use("/api/auth", authRouter);
 app.use("/api/user", registerRouter);
 
 app.listen(process.env.PORT, () => {
