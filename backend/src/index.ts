@@ -21,10 +21,6 @@ app.use(express.urlencoded({ extended: true, limit: "20kb" }));
 app.use(cookieParser());
 app.use("/api/user", registerRouter);
 
-app.get("/", (req, res) => {
-  console.log("Response", res.status(200));
-});
-
 app.listen(process.env.PORT, () => {
   console.log(`server is running at:${process.env.PORT}`);
 });
