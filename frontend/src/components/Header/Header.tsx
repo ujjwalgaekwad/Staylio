@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 
 function Header() {
+  const navigate = useNavigate();
   const navs = [
     {
       id: 1,
@@ -38,7 +39,10 @@ function Header() {
           </nav>
           <div className="flex items-center gap-4">
             <Button variant={"outline"}>Sign In</Button>
-            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300">
+            <Button
+              onClick={() => navigate("/register")}
+              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+            >
               Sign Up
             </Button>
           </div>
