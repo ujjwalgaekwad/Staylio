@@ -1,7 +1,7 @@
 import { InputForm } from "@/types/Types";
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+import { apiRoutes } from "./apiRoutes";
 export const auth = async (formData: InputForm) => {
-  const response = await fetch(`${API_BASE_URL}/api/user/register`, {
+  const response = await fetch(`${apiRoutes.register}/api/user/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
