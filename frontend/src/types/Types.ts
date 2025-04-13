@@ -6,3 +6,19 @@ export type InputForm = {
     confirmPassword: string;
     register?: object
 }
+
+export type ToastMessage = {
+    message: string;
+    type: "Success" | "Error"
+}
+
+export type AppContext = {
+    showToast: (toastMessage: ToastMessage) => void;
+}
+
+
+export type ToastProps = {
+    message: string;
+    type: "SUCCESS" | "ERROR";
+    onClose: () => void;
+}

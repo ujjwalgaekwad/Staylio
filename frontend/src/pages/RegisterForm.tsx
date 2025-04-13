@@ -13,8 +13,10 @@ import { useForm } from "react-hook-form";
 import { InputForm } from "@/types/Types";
 import * as apiClient from "../utils/auth";
 import { useMutation } from "@tanstack/react-query";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function RegisterForm() {
+  const { showToast } = useAppContext();
   const {
     register,
     handleSubmit,
@@ -22,13 +24,14 @@ export default function RegisterForm() {
     formState: { errors },
   } = useForm<InputForm>();
 
-  const mutation = useMutation<void, Error, InputForm>({ //fixed
+  const mutation = useMutation<void, Error, InputForm>({
+    //fixed
     mutationFn: apiClient.auth,
     onSuccess: () => {
-      console.log("Registration successful!");
+      showToast({ message: "Registration Successful!", type: "Success" });
     },
     onError: (error) => {
-      console.log(error.message);
+      showToast({ message: error.message, type: "Error" });
     },
   });
 

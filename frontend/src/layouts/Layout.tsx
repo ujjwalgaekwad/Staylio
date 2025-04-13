@@ -6,7 +6,7 @@ function Layout() {
   return (
     <div>
       <Header/>
-      <main>
+      <main className="mx-auto px-10">
         {<Outlet />}
       </main>
       <Footer isPrimary={false}/>

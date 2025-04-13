@@ -38,7 +38,7 @@ function Header() {
               ))}
           </nav>
           <div className="flex items-center gap-4">
-            <Button variant={"outline"}>Sign In</Button>
+            <Button variant={"outline"} onClick={() => navigate("/login")}>Sign In</Button>
             <Button
               onClick={() => navigate("/register")}
               className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
