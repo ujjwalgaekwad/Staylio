@@ -14,8 +14,10 @@ import { InputForm } from "@/types/Types";
 import * as apiClient from "../utils/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useAppContext } from "@/contexts/AppContext";
+import { useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const { showToast } = useAppContext();
   const {
     register,
@@ -29,6 +31,7 @@ export default function RegisterForm() {
     mutationFn: apiClient.auth,
     onSuccess: () => {
       showToast({ message: "Registration Successful!", type: "Success" });
+      navigate("/");
     },
     onError: (error) => {
       showToast({ message: error.message, type: "Error" });

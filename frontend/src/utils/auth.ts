@@ -15,3 +15,16 @@ export const auth = async (formData: InputForm) => {
     throw new Error(responseBody.message);
   }
 };
+
+
+export const validateToken = async () => {
+  const response = await fetch(`${apiRoutes.auth}/api/auth/validate-token`, {
+    credentials: "include",
+  })
+
+  if(!response.ok) {
+    throw new Error("Invalid token")
+  }
+
+  return response.json();
+}

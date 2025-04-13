@@ -1,26 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
+import { AppContenxt, useAppContext } from "@/contexts/AppContext";
 
 function Header() {
   const navigate = useNavigate();
-  const navs = [
-    {
-      id: 1,
-      name: "Home",
-      slug: "/",
-    },
-    {
-      id: 2,
-      name: "Dashboard",
-      slug: "/dashboard",
-    },
-    {
-      id: 3,
-      name: "Booking",
-      slug: "/booking",
-    },
-  ];
-
+  const { isLoggedIn } = useAppContext();
   return (
     <div className="container mx-auto px-10">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -29,22 +13,21 @@ function Header() {
             <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
             <span>StayEase</span>
           </Link>
-          <nav className="hidden md:flex gap-6">
-            {navs.length > 0 &&
-              navs.map((nav) => (
-                <div key={nav.id} className="font-semibold">
-                  <Link to={nav.slug}>{nav.name}</Link>
-                </div>
-              ))}
-          </nav>
           <div className="flex items-center gap-4">
-            <Button variant={"outline"} onClick={() => navigate("/login")}>Sign In</Button>
-            <Button
-              onClick={() => navigate("/register")}
-              className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
-            >
-              Sign Up
-            </Button>
+            {isLoggedIn ? (
+              <>
+                <Link to="/my-booking">Booking</Link>
+                <Link to="/my-hotels">Hotels</Link>
+                <Button>Sign out</Button>
+              </>
+            ) : (
+              <Button
+                onClick={() => navigate("/register")}
+                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+              >
+                Sign In
+              </Button>
+            )}
           </div>
         </div>
       </header>

@@ -14,6 +14,7 @@ export type ToastMessage = {
 
 export type AppContext = {
     showToast: (toastMessage: ToastMessage) => void;
+    isLoggedIn: boolean;
 }
 
 
