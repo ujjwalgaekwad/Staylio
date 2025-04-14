@@ -48,10 +48,8 @@ router.post(
         secure: process.env.NODE_ENV === "production",
         maxAge: 86400000,
       });
-
-      res
-        .status(200)
-        .json({ userId: user._id, message: "User login successfully" });
+      res.status(200).json({ userId: user._id });
+      
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Invalid Credentials" });
@@ -60,7 +58,7 @@ router.post(
 );
 
 router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
-  res.status(200).send({userId: req.userId})
-})
+  res.status(200).send({ userId: req.userId });
+});
 
 export default router;

@@ -9,18 +9,19 @@ import authRouter from "./routes/auth.routes";
 connectDB();
 
 const app = express();
-app.use(cookieParser());
-app.use(express.json({ limit: "20kb" }));
-app.use(express.urlencoded({ extended: true, limit: "20kb" }));
-app.use(cookieParser());
-app.use("/api/auth", authRouter);
-app.use("/api/user", registerRouter);
+
 app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
     credentials: true,
   })
 );
+app.use(cookieParser());
+app.use(express.json({ limit: "20kb" }));
+app.use(express.urlencoded({ extended: true, limit: "20kb" }));
+app.use(cookieParser());
+app.use("/api/auth", authRouter);
+app.use("/api/user", registerRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running at:${process.env.PORT}`);
