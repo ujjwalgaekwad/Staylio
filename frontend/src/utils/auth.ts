@@ -2,7 +2,7 @@ import { InputForm } from "@/types/Types";
 import { apiRoutes } from "./apiRoutes";
 
 export const auth = async (formData: InputForm) => {
-  const response = await fetch(`${apiRoutes.register}/api/user/register`, {
+  const response = await fetch(`${apiRoutes.register}`, {
     method: "POST",
     credentials: "include",
     headers: {
@@ -17,5 +17,3 @@ export const auth = async (formData: InputForm) => {
     throw new Error(responseBody.message);
   }
 };
-
-
