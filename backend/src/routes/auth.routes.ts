@@ -3,7 +3,6 @@ import { check, validationResult } from "express-validator";
 import { User } from "../models/user.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import verifyToken from "../middlewares/auth";
 
 const router = express.Router();
 
@@ -43,11 +42,12 @@ router.post(
         }
       );
 
-      res.cookie("auth_token", token, {
+      res.cookie("token", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        maxAge: 86400000,
+        sameSite: "lax",
       });
+      
       res.status(200).json({ userId: user._id });
       
     } catch (error) {
@@ -56,9 +56,5 @@ router.post(
     }
   }
 );
-
-router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
-  res.status(200).send({ userId: req.userId });
-});
 
 export default router;

@@ -18,14 +18,4 @@ export const auth = async (formData: InputForm) => {
   }
 };
 
-export const validateToken = async () => {
-  const response = await fetch(`http://localhost:6767/api/auth/validate-token`, {
-    credentials: "include",
-  });
 
-  if (!response.ok) {
-    throw new Error("Token invalid");
-  }
-
-  return response.json();
-};
