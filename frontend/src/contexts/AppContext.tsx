@@ -1,17 +1,19 @@
+import { createContext, ReactNode, useContext, useState } from "react";
 import Toast from "@/components/Toast";
 import { AppContext, ToastMessage } from "@/types/Types";
-import { createContext, ReactNode, useContext, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import * as auth from "../utils/auth";
 
 export const AppContenxt = createContext<AppContext | undefined>(undefined);
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
 
-  // const { isError } = useQuery({
-  //   queryKey: ["validateToken"],
-  //   queryFn: auth.validateToken,
-  //   retry: false,
-  // });
+  const { isError } = useQuery({
+    queryKey: ["validateToken"],
+    queryFn: auth.validateToken,
+    retry: false,
+  });
 
   // const showToast = (toastMessage: ToastMessage) => {
   //   setToast(toastMessage);
@@ -22,6 +24,7 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         showToast: (toastMessage) => {
           setToast(toastMessage);
         },
+        isLoggedIn: !isError
       }}
     >
       {toast && (

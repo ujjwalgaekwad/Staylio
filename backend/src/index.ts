@@ -22,8 +22,6 @@ app.use(express.urlencoded({ extended: true}));
 app.use("/api/auth", authRouter);
 app.use("/api/user", registerRouter);
 
-
-
 app.listen(process.env.PORT, () => {
   console.log(`server is running at:${process.env.PORT}`);
 });

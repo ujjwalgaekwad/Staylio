@@ -42,14 +42,12 @@ router.post(
         }
       );
 
-      res.cookie("token", token, {
+      res.cookie("userToken", token, {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
         sameSite: "lax",
       });
-      
       res.status(200).json({ userId: user._id });
-      
     } catch (error) {
       console.log(error);
       return res.status(500).json({ message: "Invalid Credentials" });
