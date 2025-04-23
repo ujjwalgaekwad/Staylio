@@ -10,6 +10,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 type LoginFormData = {
   email: string;
@@ -64,7 +65,9 @@ export default function LoginForm() {
                 {...register("password", { required: "Password is required" })}
               />
               {errors.password && (
-                <p className="text-sm text-red-600">{errors.password.message}</p>
+                <p className="text-sm text-red-600">
+                  {errors.password.message}
+                </p>
               )}
             </div>
           </CardContent>
@@ -82,6 +85,11 @@ export default function LoginForm() {
             </Button>
           </CardFooter>
         </form>
+        <CardContent>
+          <p className="text-center">Don't have an account? 
+            <Link to={"/register"} className="ml-1 underline font-semibold">Sign Up</Link>
+          </p>
+        </CardContent>
       </Card>
     </div>
   );

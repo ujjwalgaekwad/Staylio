@@ -14,7 +14,7 @@ import { InputForm } from "@/types/Types";
 import * as apiClient from "../utils/auth";
 import { useMutation } from "@tanstack/react-query";
 import { useAppContext } from "@/contexts/AppContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
   const navigate = useNavigate();
@@ -156,6 +156,11 @@ export default function RegisterForm() {
             </Button>
           </CardFooter>
         </form>
+        <CardContent>
+          <p className="text-center">Already have an account? 
+            <Link to={"/login"} className="ml-1 underline font-semibold">LogIn</Link>
+          </p>
+        </CardContent>
       </Card>
     </div>
   );

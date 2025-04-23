@@ -25,7 +25,7 @@ function Header() {
                 onClick={() => navigate("/register")}
                 className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
               >
-                Sign In
+                Sign Up
               </Button>
             )}
           </div>
