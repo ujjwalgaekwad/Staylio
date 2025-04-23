@@ -1,8 +1,6 @@
-import express, { Request, Response } from "express";
-import { check, validationResult } from "express-validator";
-import { User } from "../models/user.model";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
+import express from "express";
+import { check } from "express-validator";
+import { auth } from "../controllers/auth.controller";
 
 const router = express.Router();
 
@@ -15,44 +13,7 @@ router.post(
       "Your password must contain between 4 and 60 characters."
     ).isLength({ min: 4, max: 60 }),
   ],
-  async (req: Request, res: Response): Promise<any> => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ message: errors.array() });
-    }
-
-    const { email, password } = req.body;
-
-    try {
-      const user = await User.findOne({ email });
-      if (!user) {
-        return res.status(400).json({ message: "Invalid Credentials" });
-      }
-
-      const isMatch = await bcrypt.compare(password, user.password);
-      if (!isMatch) {
-        return res.status(400).json({ message: "Invalid Password" });
-      }
-
-      const token = jwt.sign(
-        { userId: user._id },
-        process.env.JWT_SECRET_KEY as string,
-        {
-          expiresIn: "1d",
-        }
-      );
-
-      res.cookie("userToken", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
-      });
-      res.status(200).json({ userId: user._id });
-    } catch (error) {
-      console.log(error);
-      return res.status(500).json({ message: "Invalid Credentials" });
-    }
-  }
+  auth
 );
 
 export default router;
