@@ -10,13 +10,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
-import { InputForm } from "@/types/Types";
+import { RegisterFormData } from "@/types/Types";
 import * as apiClient from "../utils/auth";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppContext } from "@/contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function RegisterForm() {
+  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { showToast } = useAppContext();
   const {
@@ -24,13 +25,16 @@ export default function RegisterForm() {
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<InputForm>();
+  } = useForm<RegisterFormData>();
 
-  const mutation = useMutation<void, Error, InputForm>({
+  const mutation = useMutation<void, Error, RegisterFormData>({
     //fixed
     mutationFn: apiClient.auth,
-    onSuccess: () => {
+    onSuccess: async () => {
       showToast({ message: "Registration Successful!", type: "Success" });
+      await queryClient.invalidateQueries({
+        queryKey: ["validateToken"],
+      });
       navigate("/");
     },
     onError: (error) => {
@@ -157,8 +161,11 @@ export default function RegisterForm() {
           </CardFooter>
         </form>
         <CardContent>
-          <p className="text-center">Already have an account? 
-            <Link to={"/login"} className="ml-1 underline font-semibold">LogIn</Link>
+          <p className="text-center">
+            Already have an account?
+            <Link to={"/login"} className="ml-1 underline font-semibold">
+              LogIn
+            </Link>
           </p>
         </CardContent>
       </Card>

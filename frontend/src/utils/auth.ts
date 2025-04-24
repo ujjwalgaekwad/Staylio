@@ -1,7 +1,7 @@
-import { InputForm } from "@/types/Types";
+import { RegisterFormData, SignInFormData } from "@/types/Types";
 import { apiRoutes } from "./apiRoutes";
 
-export const auth = async (formData: InputForm) => {
+export const auth = async (formData: RegisterFormData) => {
   const response = await fetch(`${apiRoutes.register}`, {
     method: "POST",
     credentials: "include",
@@ -18,6 +18,22 @@ export const auth = async (formData: InputForm) => {
   }
 };
 
+export const signIn = async (formData: SignInFormData) => {
+  const response = await fetch(`${apiRoutes.signIn}`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  });
+  const body = await response.json();
+  if (!response.ok) {
+    throw new Error(body.message);
+  }
+  return body;
+};
+
 export const validateToken = async () => {
   const response = await fetch(`${apiRoutes.validateToken}`, {
     credentials: "include",
@@ -29,3 +45,15 @@ export const validateToken = async () => {
 
   return response.json();
 };
+
+
+export const logout = async () => {
+  const response = await fetch(`${apiRoutes.logout}`, {
+    method: "POST",
+    credentials: "include",
+  })
+
+  if(!response.ok) {
+    throw new Error("Error during logout");
+  }
+}

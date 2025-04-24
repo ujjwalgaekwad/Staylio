@@ -10,32 +10,44 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { Link } from "react-router-dom";
-
-type LoginFormData = {
-  email: string;
-  password: string;
-};
+import { Link, useNavigate } from "react-router-dom";
+import { SignInFormData } from "@/types/Types";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import * as apiClient from "../utils/auth";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function LoginForm() {
+  const queryClient = useQueryClient();
+  const naviagte = useNavigate();
+  const { showToast } = useAppContext();
   const {
     register,
-    handleSubmit,
     formState: { errors },
-  } = useForm<LoginFormData>();
+    handleSubmit,
+  } = useForm<SignInFormData>();
 
-  const onSubmit = (data: LoginFormData) => {
-    console.log("Login submitted:", data);
-  };
+  const mutation = useMutation({
+    mutationFn: apiClient.signIn,
+    onSuccess: async () => {
+      showToast({ message: "SignIn successful!", type: "Success" });
+      await queryClient.invalidateQueries({
+        queryKey: ["validateToken"],
+      });
+      naviagte("/");
+    },
+    onError: async (error) => {
+      showToast({ message: error.message, type: "Error" });
+    },
+  });
 
-  const handleGoogleLogin = () => {
-    console.log("Redirecting to Google OAuth...");
-  };
+  const onSubmit = handleSubmit((data) => {
+    mutation.mutate(data);
+  });
 
   return (
     <div className="min-h-screen flex items-center justify-center">
       <Card className="w-full max-w-md">
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
           <CardHeader>
             <CardTitle className="text-2xl text-center">Login</CardTitle>
             <CardDescription className="text-center">
@@ -75,19 +87,17 @@ export default function LoginForm() {
             <Button type="submit" className="w-full">
               Sign In
             </Button>
-            <Button
-              type="button"
-              variant="outline"
-              className="w-full"
-              onClick={handleGoogleLogin}
-            >
+            <Button type="button" variant="outline" className="w-full">
               Continue with Google
             </Button>
           </CardFooter>
         </form>
         <CardContent>
-          <p className="text-center">Don't have an account? 
-            <Link to={"/register"} className="ml-1 underline font-semibold">Sign Up</Link>
+          <p className="text-center">
+            Don't have an account?
+            <Link to={"/register"} className="ml-1 underline font-semibold">
+              Sign Up
+            </Link>
           </p>
         </CardContent>
       </Card>

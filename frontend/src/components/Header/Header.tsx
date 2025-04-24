@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { useAppContext } from "@/contexts/AppContext";
+import SignOutButton from "../SignOutButton";
 
 function Header() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Header() {
               <>
                 <Link to="/my-booking">Booking</Link>
                 <Link to="/my-hotels">Hotels</Link>
-                <Button>Sign out</Button>
+                <SignOutButton/>
               </>
             ) : (
               <Button
