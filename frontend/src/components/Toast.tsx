@@ -1,4 +1,5 @@
 import { ToastProps } from "@/types/Types";
+import { X } from "lucide-react";
 import { useEffect } from "react";
 
 function Toast({ message, type, onClose }: ToastProps) {
@@ -7,20 +8,21 @@ function Toast({ message, type, onClose }: ToastProps) {
       onClose();
     }, 5000);
 
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [onClose]);
 
   const style =
     type === "SUCCESS"
-      ? "fixed bottom-4 right-4 z-1 py-2 px-8 rounded-md bg-green-600 text-white max-w-md"
-      : "fixed bottom-4 right-4 z-1 py-2 px-8 rounded-md bg-red-600 text-white max-w-md";
+      ? "toast-container bg-green-600"
+      : "toast-container bg-red-600";
 
   return (
-    <div className={style}>
-      <div className="flex justify-center items-center">
+    <div className={`${style} animate-slide-in`}>
+      <div className="flex justify-between items-center w-full">
         <span className="text-sm font-semibold">{message}</span>
+        <button onClick={onClose} className="ml-4">
+          <X  className="text-white hover:text-gray-200 cursor-pointer" />
+        </button>
       </div>
     </div>
   );

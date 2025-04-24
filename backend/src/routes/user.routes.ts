@@ -24,8 +24,8 @@ router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
 });
 
 router.post("/logout", (req: Request, res: Response) => {
-  res.cookie("authToken","", {
-    expires: new Date(0)
+  res.cookie("authToken", "", {
+    expires: new Date(0),
   });
   res.send();
 });

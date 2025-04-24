@@ -31,7 +31,7 @@ const auth = async (req: Request, res: Response): Promise<any> => {
       }
     );
 
-    res.cookie("userToken", token, {
+    res.cookie("authToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
