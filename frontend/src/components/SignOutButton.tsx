@@ -24,7 +24,7 @@ function SignOutButton() {
 
   return (
     <div>
-      <Button onClick={handleClick}>
+      <Button onClick={handleClick} className="cursor-pointer">
         <LogOut />
         Log out
       </Button>

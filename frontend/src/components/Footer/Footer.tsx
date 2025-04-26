@@ -33,13 +33,14 @@ const Footer = ({ isPrimary }: FooterProps) => {
         <div className="container py-12 md:py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
-              <Link
-                to="/"
-                className="flex items-center gap-2 font-bold text-xl mb-4"
-              >
-                <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
-                <span>StayEase</span>
-              </Link>
+            <div className="container flex h-16 items-center justify-between">
+          <Link to="/" className="flex items-center font-bold text-xl">
+            <div className="h-14 w-14 rounded-full">
+              <img src="./Staylio.png" alt="" />
+            </div>
+            <span>Staylion</span>
+          </Link>
+          </div>
               <p className="text-muted-foreground mb-4">
                 Find your perfect stay anywhere in the world with our
                 easy-to-use hotel booking platform.

@@ -10,16 +10,18 @@ function Header() {
     <div className="container mx-auto px-10">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 font-bold text-xl">
-            <div className="h-8 w-8 rounded-full bg-gradient-to-r from-purple-500 to-pink-500"></div>
-            <span>StayEase</span>
+          <Link to="/" className="flex items-center font-bold text-xl">
+            <div className="h-14 w-14 rounded-full">
+              <img src="./Staylio.png" alt="" />
+            </div>
+            <span>Staylion</span>
           </Link>
           <div className="flex items-center gap-4">
             {isLoggedIn ? (
               <>
                 <Link to="/my-booking">Booking</Link>
                 <Link to="/my-hotels">Hotels</Link>
-                <SignOutButton/>
+                <SignOutButton />
               </>
             ) : (
               <Button

@@ -15,8 +15,13 @@ import * as apiClient from "../utils/auth";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppContext } from "@/contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function RegisterForm() {
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
+  const [showConfirmPassword, setShowConfirmPassword] =
+    useState<Boolean>(false);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { showToast } = useAppContext();
@@ -52,7 +57,7 @@ export default function RegisterForm() {
         <form onSubmit={onSubmit}>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">
-              Create an account
+             <h1>Sign up</h1>
             </CardTitle>
             <CardDescription className="text-center">
               Enter your information to create an account
@@ -109,23 +114,33 @@ export default function RegisterForm() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                {...register("password", {
-                  required: "Please enter the strong password.",
-                  // minLength: 4,
-                  minLength: {
-                    value: 4,
-                    message: "Password must be at least 4 characters.",
-                  },
-                  maxLength: {
-                    value: 60,
-                    message:
-                      "Your password must contain between 4 and 60 characters.",
-                  },
-                })}
-              />
+              <div className="relative">
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your password"
+                  className="pr-10"
+                  {...register("password", {
+                    required: "Please enter the strong password.",
+                    // minLength: 4,
+                    minLength: {
+                      value: 4,
+                      message: "Password must be at least 4 characters.",
+                    },
+                    maxLength: {
+                      value: 60,
+                      message:
+                        "Your password must contain between 4 and 60 characters.",
+                    },
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
+                >
+                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                </button>
+              </div>
               {errors.password && (
                 <span className="text-red-600 text-sm">
                   {errors.password.message}
@@ -134,19 +149,29 @@ export default function RegisterForm() {
             </div>
             <div className="space-y-2 mb-4">
               <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                {...register("confirmPassword", {
-                  validate: (val: string) => {
-                    if (!val) {
-                      return "This field is required.";
-                    } else if (watch("password") !== val) {
-                      return "Your password do not match";
-                    }
-                  },
-                })}
-              />
+              <div className="relative">
+                <Input
+                  id="confirmPassword"
+                  placeholder="Enter your comfirm password"
+                  className="pr-10"
+                  type={showConfirmPassword ? "text" : "password"}
+                  {...register("confirmPassword", {
+                    validate: (val: string) => {
+                      if (!val) {
+                        return "This field is required.";
+                      } else if (watch("password") !== val) {
+                        return "Your password do not match";
+                      }
+                    },
+                  })}
+                />
+                <button 
+                type="button"
+                className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
+                onClick={() => setShowConfirmPassword((prev) => !prev)}>
+                  {showConfirmPassword ? <Eye size={20}/> : <EyeOff size={20}/>}
+                </button>
+              </div>
               {errors.confirmPassword && (
                 <span className="text-red-600 text-sm">
                   {errors.confirmPassword.message}
@@ -155,7 +180,7 @@ export default function RegisterForm() {
             </div>
           </CardContent>
           <CardFooter>
-            <Button className="w-full" type="submit">
+            <Button className="w-full cursor-pointer" type="submit">
               Create an account
             </Button>
           </CardFooter>
@@ -164,7 +189,7 @@ export default function RegisterForm() {
           <p className="text-center">
             Already have an account?
             <Link to={"/login"} className="ml-1 underline font-semibold">
-              LogIn
+              Sign In
             </Link>
           </p>
         </CardContent>

@@ -15,8 +15,11 @@ import { SignInFormData } from "@/types/Types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as apiClient from "../utils/auth";
 import { useAppContext } from "@/contexts/AppContext";
+import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginForm() {
+  const [showPassword, setShowPassword] = useState<Boolean>(false)
   const queryClient = useQueryClient();
   const naviagte = useNavigate();
   const { showToast } = useAppContext();
@@ -60,7 +63,7 @@ export default function LoginForm() {
               <Input
                 id="email"
                 type="email"
-                placeholder="you@example.com"
+                placeholder="Email Address"
                 {...register("email", { required: "Email is required" })}
               />
               {errors.email && (
@@ -68,14 +71,23 @@ export default function LoginForm() {
               )}
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 mb-4">
               <Label htmlFor="password">Password</Label>
+              <div className="relative">
               <Input
                 id="password"
-                type="password"
-                placeholder="••••••••"
+                type={showPassword ? "text": "password"}
+                placeholder="Enter your valid password"
                 {...register("password", { required: "Password is required" })}
               />
+              <button 
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
+              >
+                {showPassword ? <Eye size={20}/>: <EyeOff size={20}/>}
+              </button>
+              </div>
               {errors.password && (
                 <p className="text-sm text-red-600">
                   {errors.password.message}
@@ -84,7 +96,7 @@ export default function LoginForm() {
             </div>
           </CardContent>
           <CardFooter className="flex flex-col gap-4">
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full cursor-pointer">
               Sign In
             </Button>
             <Button type="button" variant="outline" className="w-full">
