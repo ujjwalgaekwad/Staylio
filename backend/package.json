@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc --build",
     "start": "node ./dist/index.js",
-    "dev": "nodemon ./src/index.ts"
+    "dev": "nodemon ./src/index.ts",
+    "e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon ./src/index.ts"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
+    "cross-env": "^7.0.3",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "jsonwebtoken": "^9.0.2",

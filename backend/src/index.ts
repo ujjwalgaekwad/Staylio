@@ -6,7 +6,7 @@ import { connectDB } from "./db";
 import registerRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.routes";
 
-connectDB();
+connectDB()
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/user", registerRouter);
 
