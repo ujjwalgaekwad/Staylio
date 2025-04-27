@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../ui/button";
+import { Button } from "./ui/button";
 import { useAppContext } from "@/contexts/AppContext";
-import SignOutButton from "../SignOutButton";
+import SignOutButton from "./SignOutButton";
 
 function Header() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function Header() {
             {isLoggedIn ? (
               <>
                 <Link to="/my-booking">Booking</Link>
-                <Link to="/my-hotels">Hotels</Link>
+                <Link to="/hotels">Hotels</Link>
                 <SignOutButton />
               </>
             ) : (
