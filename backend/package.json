@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc --build",
+    "build": "npm install && npm tsc",
     "start": "node ./dist/index.js",
     "dev": "nodemon ./src/index.ts",
     "e2e": "cross-env DOTENV_CONFIG_PATH=.env.e2e nodemon ./src/index.ts"

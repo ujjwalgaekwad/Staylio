@@ -52,7 +52,7 @@ export default function LoginForm() {
       <Card className="w-full max-w-md">
         <form onSubmit={onSubmit}>
           <CardHeader>
-            <CardTitle className="text-2xl text-center">Login</CardTitle>
+            <CardTitle className="text-2xl text-center"><h1>Sign In</h1></CardTitle>
             <CardDescription className="text-center">
               Enter your email and password to sign in
             </CardDescription>

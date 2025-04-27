@@ -5,8 +5,9 @@ import cookieParser from "cookie-parser";
 import { connectDB } from "./db";
 import registerRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.routes";
+import path from "path";
 
-connectDB()
+connectDB();
 
 const app = express();
 
@@ -16,6 +17,8 @@ app.use(
     credentials: true,
   })
 );
+
+app.use(express.static(path.join(__dirname, "../../frontend/dist")))
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
