@@ -1,0 +1,32 @@
+export const typesOfHotels: string[] = [
+  "Resort",
+  "Boutique Hotel",
+  "Hostel",
+  "Motel",
+  "Luxury Hotel",
+  "Business Hotel",
+  "Airport Hotel",
+  "Extended Stay Hotel",
+  "Bed and Breakfast",
+  "All-Inclusive Hotel",
+  "Eco Hotel",
+  "Family",
+];
+
+export const hotelFacilities = [
+  "Free Wi-Fi",
+  "Swimming Pool",
+  "Fitness Center",
+  "Spa",
+  "Restaurant",
+  "Bar",
+  "24-hour Front Desk",
+  "Parking",
+  "Airport Shuttle",
+  "Business Center",
+  "Pet-Friendly",
+  "Laundry Service",
+  "Room Service",
+  "Conference Rooms",
+  "Non-Smoking Rooms",
+];

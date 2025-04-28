@@ -10,7 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Button } from "./ui/button";
 
 function HotelDetailsSection() {
   const {
@@ -32,7 +31,9 @@ function HotelDetailsSection() {
               {...register("name", { required: "Name is required." })}
             />
             {errors.name && (
-              <span className="text-red-500 text-sm">{errors.name.message}</span>
+              <span className="text-red-500 text-sm">
+                {errors.name.message}
+              </span>
             )}
           </div>
           <div className="flex flex-col space-y-2">
@@ -43,7 +44,9 @@ function HotelDetailsSection() {
               {...register("city", { required: "City is required." })}
             />
             {errors.city && (
-              <span className="text-red-500 text-sm">{errors.city.message}</span>
+              <span className="text-red-500 text-sm">
+                {errors.city.message}
+              </span>
             )}
           </div>
           <div className="flex flex-col space-y-2">
@@ -54,7 +57,9 @@ function HotelDetailsSection() {
               {...register("country", { required: "Country is required." })}
             />
             {errors.country && (
-              <span className="text-red-500 text-sm">{errors.country.message}</span>
+              <span className="text-red-500 text-sm">
+                {errors.country.message}
+              </span>
             )}
           </div>
           <div className="flex flex-col space-y-2">
@@ -67,7 +72,9 @@ function HotelDetailsSection() {
               {...register("pricePerNight", { required: "Price is required." })}
             />
             {errors.pricePerNight && (
-              <span className="text-red-500 text-sm">{errors.pricePerNight.message}</span>
+              <span className="text-red-500 text-sm">
+                {errors.pricePerNight.message}
+              </span>
             )}
           </div>
           <div className="flex flex-col space-y-2">
@@ -87,7 +94,9 @@ function HotelDetailsSection() {
               </SelectContent>
             </Select>
             {errors.starRating && (
-              <span className="text-red-500 text-sm">{errors.starRating.message}</span>
+              <span className="text-red-500 text-sm">
+                {errors.starRating.message}
+              </span>
             )}
           </div>
           <div className="flex flex-col md:col-span-2 space-y-2">
@@ -95,20 +104,16 @@ function HotelDetailsSection() {
             <Textarea
               id="description"
               placeholder="Describe the hotel..."
-              {...register("description", { required: "Description is required." })}
+              {...register("description", {
+                required: "Description is required.",
+              })}
               rows={5}
             />
             {errors.description && (
-              <span className="text-red-500 text-sm">{errors.description.message}</span>
+              <span className="text-red-500 text-sm">
+                {errors.description.message}
+              </span>
             )}
-          </div>
-          <div className="md:col-span-2 flex justify-center">
-            <Button
-              type="submit"
-              className="w-full"
-            >
-              Submit
-            </Button>
           </div>
         </form>
       </div>
