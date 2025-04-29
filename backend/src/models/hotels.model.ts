@@ -51,7 +51,7 @@ const hotelSchema = new mongoose.Schema<HotelType>(
       min: 1,
       max: 5,
     },
-    imageUrls: [
+    imageFiles: [
       {
         type: String,
         requred: true,

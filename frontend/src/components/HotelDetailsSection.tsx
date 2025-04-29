@@ -3,13 +3,6 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import { HotelFormData } from "@/types/Types";
 import { Textarea } from "./ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 function HotelDetailsSection() {
   const {
@@ -20,9 +13,9 @@ function HotelDetailsSection() {
   return (
     <div className="flex flex-col mt-4">
       <div className="w-full ">
-        <h1 className="text-3xl font-bold mb-10 text-gray-800">Add Hotel</h1>
+        <h1 className="text-2xl font-bold mb-5 text-gray-800">Dashboard</h1>
 
-        <form className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
           <div className="flex flex-col space-y-2">
             <Label htmlFor="name">Hotel Name</Label>
             <Input
@@ -77,24 +70,25 @@ function HotelDetailsSection() {
               </span>
             )}
           </div>
-          <div className="flex flex-col space-y-2">
-            <Label htmlFor="starRating">Star Rating</Label>
-            <Select
-              {...register("starRating", { required: "Rating is required." })}
-            >
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="Select rating" />
-              </SelectTrigger>
-              <SelectContent>
+          <div className="flex flex-col">
+            <Label>
+              Star Rating
+              <select
+                className="w-[180px] p-2 rounded-md"
+                {...register("starRating", {
+                  required: "This field is required.",
+                })}
+              >
+                <option>Star</option>
                 {[1, 2, 3, 4, 5].map((star) => (
-                  <SelectItem key={star} value={star.toString()}>
+                  <option key={star} value={star}>
                     {star}
-                  </SelectItem>
+                  </option>
                 ))}
-              </SelectContent>
-            </Select>
-            {errors.starRating && (
-              <span className="text-red-500 text-sm">
+              </select>
+            </Label>
+            {errors.starRating?.type === "required" && (
+              <span className="text-sm text-red-400">
                 {errors.starRating.message}
               </span>
             )}
@@ -115,7 +109,7 @@ function HotelDetailsSection() {
               </span>
             )}
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );

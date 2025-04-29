@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { useForm } from "react-hook-form";
 import { RegisterFormData } from "@/types/Types";
-import * as apiClient from "../utils/auth";
+import * as apiClient from "../utils/api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppContext } from "@/contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";

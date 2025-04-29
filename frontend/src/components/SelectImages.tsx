@@ -17,17 +17,19 @@ function SelectImages() {
           type="file"
           accept="image/*"
           multiple
-          {...register("imageUrls", {
-            validate: (imageUrls) => {
-              const totalLength = imageUrls.length;
+          {...register("imageFiles", {
+            validate: (imageFiles) => {
+              const totalLength = imageFiles.length;
               if (totalLength === 0) return "At least one image is required.";
               if (totalLength > 6) return "Cannot upload more than 6 images.";
               return true;
             },
           })}
         />
-        {errors.imageUrls && (
-          <span className="text-red-500 text-sm">{errors.imageUrls.message}</span>
+        {errors.imageFiles && (
+          <span className="text-red-500 text-sm">
+            {errors.imageFiles.message}
+          </span>
         )}
       </Label>
     </div>

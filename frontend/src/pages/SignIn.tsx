@@ -13,7 +13,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import { SignInFormData } from "@/types/Types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as apiClient from "../utils/auth";
+import * as apiClient from "../utils/api";
 import { useAppContext } from "@/contexts/AppContext";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";

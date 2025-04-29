@@ -1,7 +1,7 @@
 import { LogOut } from "lucide-react";
 import { Button } from "./ui/button";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import * as auth from "@/utils/auth";
+import * as auth from "@/utils/api";
 import { useAppContext } from "@/contexts/AppContext";
 
 function SignOutButton() {

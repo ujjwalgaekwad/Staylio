@@ -46,14 +46,27 @@ export const validateToken = async () => {
   return response.json();
 };
 
-
 export const logout = async () => {
   const response = await fetch(`${apiRoutes.logout}`, {
     method: "POST",
     credentials: "include",
-  })
+  });
 
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Error during logout");
   }
-}
+};
+
+export const addHotelData = async (HotelFormData: FormData) => {
+  const response = await fetch(`${apiRoutes.addHotelData}`, {
+    method: "POST",
+    credentials: "include",
+    body: HotelFormData
+  });
+
+  if (!response.ok) {
+    throw new Error("Add hotel data faild.");
+  }
+
+  return await response.json();
+};

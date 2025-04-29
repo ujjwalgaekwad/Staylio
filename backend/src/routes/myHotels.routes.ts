@@ -17,7 +17,7 @@ const upload = multer({
 });
 
 router.post(
-  "/my-hotes",
+  "/my-hotels",
   verifyToken,
   [
     body("name").notEmpty().withMessage("Name is required."),
@@ -48,7 +48,7 @@ router.post(
       });
 
       const imageUrls = await Promise.all(uploadPromises);
-      newHotel.imageUrls = imageUrls;
+      newHotel.imageFiles = imageUrls;
       newHotel.userId = req.userId;
       newHotel.lastUpdated = new Date();
 

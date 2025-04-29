@@ -39,5 +39,5 @@ export type HotelFormData = {
   facilities: string[];
   pricePerNight: number;
   starRating: number;
-  imageUrls: FileList;
+  imageFiles: FileList;
 };

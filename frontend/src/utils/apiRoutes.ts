@@ -5,4 +5,5 @@ export const apiRoutes = {
     import.meta.env.VITE_API_BASE_URL || ""
   }/api/user/validate-token`,
   logout: `${import.meta.env.VITE_API_BASE_URL || ""}/api/user/logout`,
+  addHotelData: `${import.meta.env.VITE_API_BASE_URL || ""}/api/hotels/my-hotels`,
 };

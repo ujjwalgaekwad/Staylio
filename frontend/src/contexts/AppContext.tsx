@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useState } from "react";
 import Toast from "@/components/Toast";
 import { AppContext, ToastMessage } from "@/types/Types";
 import { useQuery } from "@tanstack/react-query";
-import * as auth from "../utils/auth";
+import * as auth from "../utils/api";
 
 export const AppContenxt = createContext<AppContext | undefined>(undefined);
 
