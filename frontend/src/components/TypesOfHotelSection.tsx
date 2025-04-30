@@ -19,7 +19,7 @@ function TypesOfHotelSection() {
           <Label
             key={type}
             className={`cursor-pointer px-4 py-2 text-sm font-semibold rounded-full ${
-              typeWatch === type ? "bg-blue-400 text-white" : "bg-gray-200"
+              typeWatch === type ? "bg-blue-400 dark:bg-[#202020] text-white" : "bg-gray-200 dark:bg-[#695f5f]"
             }`}
           >
             <input

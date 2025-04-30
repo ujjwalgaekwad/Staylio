@@ -16,7 +16,7 @@ function Header() {
             </div>
             <span>Staylion</span>
           </Link>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 font-semibold">
             {isLoggedIn ? (
               <>
                 <Link to="/my-booking">Booking</Link>

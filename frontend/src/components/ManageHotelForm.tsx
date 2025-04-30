@@ -32,12 +32,12 @@ function ManageHotelForm({ onSave, isLoading }: Props) {
       imageFiles: formDataJson.imageFiles,
     };
 
-    formDataJson.facilities.forEach((index, facililty) => {
+    formDataJson.facilities.forEach((facililty, index) => {
       formData.append(`facilities[${index}]`, facililty.toString());
     });
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
-      formData.append(`imageFiles`, imageFile.toString());
+      formData.append(`imageFiles`, imageFile);
     });
 
     let key: keyof HotelFormData;
@@ -46,7 +46,7 @@ function ManageHotelForm({ onSave, isLoading }: Props) {
         formData.append(key, data[key] as string);
       }
     }
-
+    
     onSave(formData);
   });
 

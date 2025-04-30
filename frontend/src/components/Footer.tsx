@@ -12,7 +12,7 @@ const Footer = ({ isPrimary }: FooterProps) => {
     <div
       className={cn(
         "container mx-auto px-10 border-t",
-        isPrimary ? "bg-blue-950" : "bg-gray-50"
+        isPrimary ? "bg-blue-950" : "bg-white"
       )}
     >
       <footer className="">

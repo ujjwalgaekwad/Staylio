@@ -61,7 +61,7 @@ export const addHotelData = async (HotelFormData: FormData) => {
   const response = await fetch(`${apiRoutes.addHotelData}`, {
     method: "POST",
     credentials: "include",
-    body: HotelFormData
+    body: HotelFormData,
   });
 
   if (!response.ok) {
