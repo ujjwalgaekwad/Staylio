@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import { connectDB } from "./db";
 import registerRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.routes";
-import path from "path";
+import path, { join } from "path";
 import { v2 as cloudinary } from "cloudinary";
 import myhotels from "../src/routes/myHotels.routes";
 
@@ -33,6 +33,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/user", registerRouter);
 app.use("/api/hotels", myhotels);
+
+// app.get("*", (req: Request, res: Response) => {
+//   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
+// })
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running at:${process.env.PORT}`);

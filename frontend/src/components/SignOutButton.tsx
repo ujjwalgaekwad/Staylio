@@ -24,7 +24,7 @@ function SignOutButton() {
 
   return (
     <div>
-      <Button onClick={handleClick} className="cursor-pointer">
+      <Button onClick={handleClick} variant={"default"} size="sm" className="hidden md:flex cursor-pointer">
         <LogOut />
         Log out
       </Button>

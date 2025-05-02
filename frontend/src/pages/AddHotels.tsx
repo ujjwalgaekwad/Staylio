@@ -18,6 +18,7 @@ const AddHotels = () => {
   const onSave = (hotelFromData: FormData): void => {
     mutate(hotelFromData);
   };
+
   return (
     <div>
       <ManageHotelForm onSave={onSave} isLoading={isPending} />

@@ -1,20 +1,10 @@
-import { Router, Request, Response } from "express";
-import multer from "multer";
-import { v2 as cloudinary } from "cloudinary";
-import { HotelType } from "../types/Types";
-import { Hotel } from "../models/hotels.model";
+import { Router } from "express";
 import verifyToken from "../middlewares/auth.middlewares";
 import { body } from "express-validator";
+import { addHotels, fetchHotels } from "../controllers/hotel.controller";
+import { upload } from "../middlewares/multer.middlewares";
 
 const router = Router();
-
-const storage = multer.memoryStorage();
-const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024,
-  },
-});
 
 router.post(
   "/my-hotels",
@@ -35,32 +25,9 @@ router.post(
       .withMessage("Facilities are required."),
   ],
   upload.array("imageFiles", 6),
-  async (req: Request, res: Response) => {
-    try {
-      const imageFiles = req.files as Express.Multer.File[];
-      const newHotel: HotelType = req.body;
-
-      const uploadPromises = imageFiles.map(async (image) => {
-        const b64 = Buffer.from(image.buffer).toString("base64");
-        let dataURI = "data:" + image.mimetype + ";base64," + b64;
-        const res = await cloudinary.uploader.upload(dataURI);
-        return res.url;
-      });
-
-      const imageUrls = await Promise.all(uploadPromises);
-      newHotel.imageFiles = imageUrls;
-      newHotel.userId = req.userId;
-      newHotel.lastUpdated = new Date();
-
-      const hotel = new Hotel(newHotel);
-      await hotel.save();
-
-      res.status(201).send(hotel);
-    } catch (error) {
-      console.log("Error creating hotels:", error);
-      res.status(500).json({ message: "Do not create new hotels" });
-    }
-  }
+  addHotels
 );
+
+router.get("/my-hotels", verifyToken, fetchHotels);
 
 export default router;

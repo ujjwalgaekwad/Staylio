@@ -7,34 +7,75 @@ function Header() {
   const navigate = useNavigate();
   const { isLoggedIn } = useAppContext();
   return (
-    <div className="container mx-auto px-10">
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center font-bold text-xl">
-            <div className="h-14 w-14 rounded-full">
-              <img src="./Staylio.png" alt="" />
-            </div>
-            <span>Staylion</span>
+    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-10">
+      <div className="container flex h-16 items-center justify-between">
+        <div className="flex items-center gap-4 md:gap-2">
+          <img src="./Staylio.png" alt="" className="h-14 w-16" />
+          <Link to="/" className="flex items-center space-x-2">
+            <span className="hidden font-bold sm:inline-block text-xl">
+              Staylio
+            </span>
           </Link>
-          <div className="flex items-center gap-4 font-semibold">
+          <nav className="hidden md:flex gap-4">
+            <Link
+              to="/"
+              className="text-sm font-medium transition-colors hover:text-primary"
+            >
+              Home
+            </Link>
             {isLoggedIn ? (
               <>
-                <Link to="/my-booking">Booking</Link>
-                <Link to="/hotels">Hotels</Link>
-                <SignOutButton />
+                <Link
+                  to="/hotels"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Hotels
+                </Link>
+                <Link
+                  to="/add-hotels"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to="#"
+                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+                >
+                  Deals
+                </Link>
               </>
             ) : (
+              ""
+            )}
+            <Link
+              to="#"
+              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              Contact
+            </Link>
+          </nav>
+        </div>
+        <div className="flex items-center gap-4">
+          {isLoggedIn ? (
+            <SignOutButton />
+          ) : (
+            <>
               <Button
-                onClick={() => navigate("/register")}
-                className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-all duration-300"
+                variant="ghost"
+                size="sm"
+                className="hidden md:flex"
+                onClick={() => navigate("/login")}
               >
+                Sign In
+              </Button>
+              <Button size="sm" onClick={() => navigate("/register")}>
                 Sign Up
               </Button>
-            )}
-          </div>
+            </>
+          )}
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
 

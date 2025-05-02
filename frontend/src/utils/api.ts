@@ -1,4 +1,4 @@
-import { RegisterFormData, SignInFormData } from "@/types/Types";
+import { HotelType, RegisterFormData, SignInFormData } from "@/types/Types";
 import { apiRoutes } from "./apiRoutes";
 
 export const auth = async (formData: RegisterFormData) => {
@@ -58,7 +58,7 @@ export const logout = async () => {
 };
 
 export const addHotelData = async (HotelFormData: FormData) => {
-  const response = await fetch(`${apiRoutes.addHotelData}`, {
+  const response = await fetch(`${apiRoutes.Hotels}`, {
     method: "POST",
     credentials: "include",
     body: HotelFormData,
@@ -69,4 +69,17 @@ export const addHotelData = async (HotelFormData: FormData) => {
   }
 
   return await response.json();
+};
+
+export const fetchHotels = async (): Promise<HotelType[]> => {
+  const response = await fetch(`${apiRoutes.Hotels}`, {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching data");
+  }
+  
+  return response.json();
 };
