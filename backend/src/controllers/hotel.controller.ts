@@ -38,4 +38,14 @@ const fetchHotels = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Faild to fetch hotel data" });
   }
 };
-export { addHotels, fetchHotels };
+
+const fetchHotelById = async (req: Request, res: Response) => {
+  const id = req.params.id.toString();
+  try {
+    const hotel = await Hotel.findOne({ _id: id, userId: req.userId });
+    res.json(hotel);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching hotels" });
+  }
+};
+export { addHotels, fetchHotels, fetchHotelById };

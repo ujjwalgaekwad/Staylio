@@ -1,8 +1,13 @@
-import { Router } from "express";
+import { Request, Response, Router } from "express";
 import verifyToken from "../middlewares/auth.middlewares";
 import { body } from "express-validator";
-import { addHotels, fetchHotels } from "../controllers/hotel.controller";
+import {
+  addHotels,
+  fetchHotelById,
+  fetchHotels,
+} from "../controllers/hotel.controller";
 import { upload } from "../middlewares/multer.middlewares";
+import { Hotel } from "../models/hotels.model";
 
 const router = Router();
 
@@ -29,5 +34,7 @@ router.post(
 );
 
 router.get("/my-hotels", verifyToken, fetchHotels);
+
+router.get("/my-hotels/:id", verifyToken, fetchHotelById);
 
 export default router;
