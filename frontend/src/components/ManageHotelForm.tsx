@@ -6,15 +6,21 @@ import { Button } from "./ui/button";
 import HotelFacilities from "./HotelFacilities";
 import GuestSection from "./GuestSection";
 import SelectImages from "./SelectImages";
+import { useEffect } from "react";
 
 type Props = {
   onSave: (hotelFormData: FormData) => void;
   isLoading: boolean;
+  hotel: HotelFormData;
 };
 
-function ManageHotelForm({ onSave, isLoading }: Props) {
+function ManageHotelForm({ onSave, isLoading, hotel }: Props) {
   const methods = useForm<HotelFormData>();
-  const { handleSubmit } = methods;
+  const { handleSubmit, reset } = methods;
+
+  useEffect(() => {
+    reset(hotel);
+  }, [hotel, reset]);
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
     const formData = new FormData();

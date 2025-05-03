@@ -80,6 +80,18 @@ export const fetchHotels = async (): Promise<HotelType[]> => {
   if (!response.ok) {
     throw new Error("Error fetching data");
   }
-  
+
+  return response.json();
+};
+
+export const fetchHotelById = async (hotelId: String): Promise<HotelType> => {
+  const response = await fetch(`${apiRoutes.Hotels}/${hotelId}`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("Error fetching data by id");
+  }
+
   return response.json();
 };

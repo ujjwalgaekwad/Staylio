@@ -1,19 +1,35 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { useAppContext } from "@/contexts/AppContext";
 import { fetchHotels } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { Car, ChevronRight, Coffee, MapPin, Star, Wifi } from "lucide-react";
+import { Link } from "react-router-dom";
 
 function Hotels() {
-  const { data: hotelsData } = useQuery({
+  const { showToast } = useAppContext();
+  const { data: hotelsData, isError } = useQuery({
     queryKey: ["fetchHotels"],
     queryFn: fetchHotels,
   });
 
+  if (isError) {
+    showToast({ message: isError.toString(), type: "Error" });
+  }
+
   if (!hotelsData) {
     return <span>Not found hotels data.</span>;
   }
+
+  console.log(hotelsData);
 
   return (
     <div>
@@ -69,7 +85,7 @@ function Hotels() {
                     variant="outline"
                     className="flex items-center gap-1 text-xs"
                   >
-                    <Wifi className="h-3 w-3" /> Free WiFi
+                    <Wifi /> Wifi
                   </Badge>
                   <Badge
                     variant="outline"
@@ -87,13 +103,19 @@ function Hotels() {
               </CardContent>
               <CardFooter className="p-4 pt-0 flex justify-between items-center">
                 <div>
-                  <span className="text-xl font-bold">{hotel.pricePerNight}</span>
+                  <span className="text-xl font-bold">
+                    {hotel.pricePerNight}
+                  </span>
                   <span className="text-muted-foreground text-sm">
                     {" "}
                     / night
                   </span>
                 </div>
-                <Button size="sm">View Details</Button>
+                <span>
+                  <Link to={`/edit-hotel/${hotel._id}`} className="p-2 bg-black rounded-md text-white">
+                    View Details
+                  </Link>
+                </span>
               </CardFooter>
             </Card>
           ))}
