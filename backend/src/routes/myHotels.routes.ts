@@ -5,9 +5,9 @@ import {
   addHotels,
   fetchHotelById,
   fetchHotels,
+  findAndUpdateHotel,
 } from "../controllers/hotel.controller";
 import { upload } from "../middlewares/multer.middlewares";
-import { Hotel } from "../models/hotels.model";
 
 const router = Router();
 
@@ -36,5 +36,12 @@ router.post(
 router.get("/my-hotels", verifyToken, fetchHotels);
 
 router.get("/my-hotels/:id", verifyToken, fetchHotelById);
+
+router.put(
+  "/:hotelId",
+  verifyToken,
+  upload.array("imageUrls"),
+  findAndUpdateHotel
+);
 
 export default router;
