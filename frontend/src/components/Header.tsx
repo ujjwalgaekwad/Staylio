@@ -10,7 +10,6 @@ function Header() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-10">
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center gap-4 md:gap-2">
-          <img src="./Staylio.png" alt="" className="h-14 w-16" />
           <Link to="/" className="flex items-center space-x-2">
             <span className="hidden font-bold sm:inline-block text-xl">
               Staylio

@@ -11,7 +11,7 @@ import { useEffect } from "react";
 type Props = {
   onSave: (hotelFormData: FormData) => void;
   isLoading: boolean;
-  hotel: HotelFormData;
+  hotel?: HotelFormData;
 };
 
 function ManageHotelForm({ onSave, isLoading, hotel }: Props) {
@@ -36,11 +36,22 @@ function ManageHotelForm({ onSave, isLoading, hotel }: Props) {
       pricePerNight: formDataJson.pricePerNight,
       starRating: formDataJson.starRating,
       imageFiles: formDataJson.imageFiles,
+      _id: hotel?._id || "",
     };
+
+    if (hotel) {
+      formData.append("hotelId", hotel._id);
+    }
 
     data.facilities.forEach((facililty, index) => {
       formData.append(`facilities[${index}]`, facililty.toString());
     });
+
+    if(data.imageUrls) {
+      data.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url)
+      })
+    }
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);

@@ -52,7 +52,7 @@ function Hotels() {
             <Card key={index} className="overflow-hidden">
               <div className="relative">
                 <img
-                  src={hotel.imageFiles[2] || "/placeholder.svg"}
+                  src=''
                   alt={hotel.name}
                   width={400}
                   height={200}
@@ -112,7 +112,7 @@ function Hotels() {
                   </span>
                 </div>
                 <span>
-                  <Link to={`/edit-hotel/${hotel._id}`} className="p-2 bg-black rounded-md text-white">
+                  <Link to={`/view-hotel/${hotel._id}`} className="p-2 bg-black rounded-md text-white">
                     View Details
                   </Link>
                 </span>
