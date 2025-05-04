@@ -16,7 +16,7 @@ const addHotels = async (req: Request, res: Response) => {
     });
 
     const imageUrls = await Promise.all(uploadPromises);
-    newHotel.imageFiles = imageUrls;
+    newHotel.imageUrls = imageUrls;
     newHotel.userId = req.userId;
     newHotel.lastUpdated = new Date();
 
