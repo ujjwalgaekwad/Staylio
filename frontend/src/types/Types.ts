@@ -59,4 +59,20 @@ export type HotelType = {
   starRating: number;
   imageFiles: string[];
   lastUpdated: Date;
+};
+
+export interface SearchContextType {
+  destination: string;
+  checkIn: Date;
+  checkOut: Date;
+  adultCount: number;
+  childCount: number;
+  hotelId: string;
+  saveSearchValues: (
+    description: string,
+    checkIn: Date,
+    checkOut: Date,
+    adultCount: number,
+    childCount: number
+  ) => void;
 }

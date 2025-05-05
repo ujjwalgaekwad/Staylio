@@ -107,8 +107,8 @@ export const UpdatHotelById = async (hotelFormData: FormData) => {
   );
 
   if (!response.ok) {
-    throw new Error("Error update data by id")
+    throw new Error("Error update data by id");
   }
-   
+
   return response.json();
 };

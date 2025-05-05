@@ -8,6 +8,7 @@ import authRouter from "./routes/auth.routes";
 import path, { join } from "path";
 import { v2 as cloudinary } from "cloudinary";
 import myhotels from "../src/routes/myHotels.routes";
+import searchRoutes from "../src/routes/hotel.routes";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -33,6 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/user", registerRouter);
 app.use("/api/hotels", myhotels);
+app.use("/api/hotelSearch", searchRoutes);
 
 // app.get("*", (req: Request, res: Response) => {
 //   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
