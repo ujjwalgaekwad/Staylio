@@ -1,4 +1,4 @@
-# Stylion
+# Stylio
 
 ## Features
 - Dynamic search and filtering by city, price, availability, and user ratings.
