@@ -1,8 +1,7 @@
 import { Request, Response } from "express";
 import { v2 as cloudinary } from "cloudinary";
-import { HotelType } from "../types/Types";
+import { HotelSearchResponse, HotelType } from "../types/Types";
 import { Hotel } from "../models/hotels.model";
-import multer from "multer";
 
 const addHotels = async (req: Request, res: Response) => {
   try {
@@ -82,4 +81,35 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
   return imageUrls;
 }
 
-export { addHotels, fetchHotels, fetchHotelById, findAndUpdateHotel };
+const hotelSearch = async (req: Request, res: Response) => {
+  let pageSize = 5;
+  let pageNumber = parseInt(req.query.page ? req.query.page.toString() : "1");
+  let skip = (pageNumber - 1) * pageSize;
+
+  try {
+    const hotel = await Hotel.find().skip(skip).limit(pageSize);
+
+    const total = await Hotel.countDocuments();
+
+    const response: HotelSearchResponse = {
+      data: hotel,
+      pagination: {
+        total,
+        page: pageNumber,
+        pages: Math.ceil(total / pageSize),
+      },
+    };
+
+    res.json(response);
+  } catch (error) {
+    res.status(500).json({ message: "Hotel search error" });
+  }
+};
+
+export {
+  addHotels,
+  fetchHotels,
+  fetchHotelById,
+  findAndUpdateHotel,
+  hotelSearch,
+};

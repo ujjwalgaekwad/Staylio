@@ -38,9 +38,9 @@ router.get("/my-hotels", verifyToken, fetchHotels);
 router.get("/my-hotels/:id", verifyToken, fetchHotelById);
 
 router.put(
-  "/:hotelId",
+  "/my-hotels/:hotelId",
   verifyToken,
-  upload.array("imageUrls"),
+  upload.array("imageFiles"),
   findAndUpdateHotel
 );
 
