@@ -8,6 +8,7 @@ import AddHotels from "./pages/AddHotels";
 import NotFound from "./pages/NotFound";
 import Hotels from "./pages/Hotels";
 import EditHotel from "./pages/EditHotel";
+import SearchData from "./pages/SearchData";
 
 function App() {
   const { isLoggedIn } = useAppContext();
@@ -69,6 +70,14 @@ function App() {
               element={
                 <Layout>
                   <EditHotel />
+                </Layout>
+              }
+            />
+            <Route
+              path="/search"
+              element={
+                <Layout>
+                  <SearchData />
                 </Layout>
               }
             />
