@@ -1,4 +1,10 @@
-import { HotelType, RegisterFormData, SignInFormData } from "@/types/Types";
+import {
+  HotelSearchResponse,
+  HotelType,
+  RegisterFormData,
+  SearchHotels,
+  SignInFormData,
+} from "@/types/Types";
 import { apiRoutes } from "./apiRoutes";
 
 export const auth = async (formData: RegisterFormData) => {
@@ -108,6 +114,26 @@ export const UpdatHotelById = async (hotelFormData: FormData) => {
 
   if (!response.ok) {
     throw new Error("Error update data by id");
+  }
+
+  return response.json();
+};
+
+export const searchHotels = async (
+  searchParam: SearchHotels
+): Promise<HotelSearchResponse> => {
+  const queryParams = new URLSearchParams();
+  queryParams.append("destination", searchParam.destination || "");
+  queryParams.append("checkIn", searchParam.checkIn || "");
+  queryParams.append("checkOut", searchParam.checkOut || "");
+  queryParams.append("adultCount", searchParam.adultCount || "");
+  queryParams.append("childCount", searchParam.childCount || "");
+  queryParams.append("page", searchParam.page || "");
+
+  const response = await fetch(`${apiRoutes.searchHotels}/search?${queryParams}`);
+
+  if (!response.ok) {
+    throw new Error("Search hotel data not found");
   }
 
   return response.json();

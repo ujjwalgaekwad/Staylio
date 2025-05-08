@@ -24,45 +24,32 @@ function ManageHotelForm({ onSave, isLoading, hotel }: Props) {
 
   const onSubmit = handleSubmit((formDataJson: HotelFormData) => {
     const formData = new FormData();
-    const data: HotelFormData = {
-      name: formDataJson.name,
-      city: formDataJson.city,
-      country: formDataJson.country,
-      description: formDataJson.description,
-      type: formDataJson.type,
-      adultCount: formDataJson.adultCount,
-      childCount: formDataJson.childCount,
-      facilities: formDataJson.facilities,
-      pricePerNight: formDataJson.pricePerNight,
-      starRating: formDataJson.starRating,
-      imageFiles: formDataJson.imageFiles,
-      _id: hotel?._id || "",
-    };
-
     if (hotel) {
       formData.append("hotelId", hotel._id);
     }
+    formData.append("name", formDataJson.name);
+    formData.append("city", formDataJson.city);
+    formData.append("country", formDataJson.country);
+    formData.append("description", formDataJson.description);
+    formData.append("type", formDataJson.type);
+    formData.append("pricePerNight", formDataJson.pricePerNight.toString());
+    formData.append("starRating", formDataJson.starRating.toString());
+    formData.append("adultCount", formDataJson.adultCount.toString());
+    formData.append("childCount", formDataJson.childCount.toString());
 
-    data.facilities.forEach((facililty, index) => {
-      formData.append(`facilities[${index}]`, facililty.toString());
+    formDataJson.facilities.forEach((facility, index) => {
+      formData.append(`facilities[${index}]`, facility);
     });
 
-    if(data.imageUrls) {
-      data.imageUrls.forEach((url, index) => {
-        formData.append(`imageUrls[${index}]`, url)
-      })
+    if (formDataJson.imageUrls) {
+      formDataJson.imageUrls.forEach((url, index) => {
+        formData.append(`imageUrls[${index}]`, url);
+      });
     }
 
     Array.from(formDataJson.imageFiles).forEach((imageFile) => {
       formData.append(`imageFiles`, imageFile);
     });
-
-    let key: keyof HotelFormData;
-    for (key in data) {
-      if (data.hasOwnProperty(key)) {
-        formData.append(key, data[key] as string);
-      }
-    }
 
     onSave(formData);
   });

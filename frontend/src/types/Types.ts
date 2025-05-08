@@ -39,7 +39,7 @@ export type HotelFormData = {
   starRating: number;
   facilities: string[];
   imageFiles: FileList;
-  imageUrls?: string[];
+  imageUrls: string[];
   adultCount: number;
   childCount: number;
 };
@@ -75,4 +75,22 @@ export interface SearchContextType {
     adultCount: number,
     childCount: number
   ) => void;
+}
+
+export interface SearchHotels {
+  destination?: string;
+  checkIn?: string;
+  checkOut?: string;
+  adultCount?: string;
+  childCount?: string;
+  page?: string;
+}
+
+export interface HotelSearchResponse {
+  data: HotelType[];
+  pagination: {
+    total: number;
+    page: number;
+    pages: number;
+  };
 }
