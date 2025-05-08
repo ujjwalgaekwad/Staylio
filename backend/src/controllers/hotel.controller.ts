@@ -7,19 +7,22 @@ const addHotels = async (req: Request, res: Response) => {
   try {
     const imageFiles = req.files as Express.Multer.File[];
     const newHotel: HotelType = req.body;
-
+    console.log("Whole body log:",newHotel)
     const imageUrls = await uploadImages(imageFiles);
+
     newHotel.imageUrls = imageUrls;
-    newHotel.userId = req.userId;
     newHotel.lastUpdated = new Date();
+    newHotel.userId = req.userId;
 
     const hotel = new Hotel(newHotel);
     await hotel.save();
 
     res.status(201).send(hotel);
   } catch (error) {
-    console.log("Error creating hotels:", error);
-    res.status(500).json({ message: "Do not create new hotels" });
+    console.error(error);
+    res.status(400).json({
+      message: "Error add hotel data",
+    });
   }
 };
 
@@ -85,7 +88,6 @@ const hotelSearch = async (req: Request, res: Response) => {
   let pageSize = 5;
   let pageNumber = parseInt(req.query.page ? req.query.page.toString() : "1");
   let skip = (pageNumber - 1) * pageSize;
-
   try {
     const hotel = await Hotel.find().skip(skip).limit(pageSize);
 

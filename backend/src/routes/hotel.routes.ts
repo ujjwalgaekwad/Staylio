@@ -3,6 +3,6 @@ import { hotelSearch } from "../controllers/hotel.controller";
 
 const router = express.Router();
 
-router.get("/", hotelSearch);
+router.get("/search", hotelSearch);
 
 export default router;

@@ -40,6 +40,12 @@ app.use("/api/hotelSearch", searchRoutes);
 //   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 // })
 
+app.get("/", (req, res) => {
+  console.log("Home request:", req);
+  console.log("home response:", res);
+  console.log("Request Query:", req.query);
+});
+
 app.listen(process.env.PORT, () => {
   console.log(`server is running at:${process.env.PORT}`);
 });
