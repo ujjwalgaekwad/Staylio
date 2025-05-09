@@ -129,8 +129,20 @@ export const searchHotels = async (
   queryParams.append("adultCount", searchParam.adultCount || "");
   queryParams.append("childCount", searchParam.childCount || "");
   queryParams.append("page", searchParam.page || "");
+  queryParams.append("maxPrice", searchParam.maxPrice || "");
+  queryParams.append("sortOption", searchParam.sortOption || "");
 
-  const response = await fetch(`${apiRoutes.searchHotels}/search?${queryParams}`);
+  searchParam.facilities?.forEach((facility) =>
+    queryParams.append("facilities", facility)
+  );
+
+  searchParam.types?.forEach((type) => queryParams.append("types", type));
+
+  searchParam.stars?.forEach((star) => queryParams.append("stars", star));
+
+  const response = await fetch(
+    `${apiRoutes.searchHotels}/search?${queryParams}`
+  );
 
   if (!response.ok) {
     throw new Error("Search hotel data not found");
