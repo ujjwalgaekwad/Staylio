@@ -7,7 +7,7 @@ const addHotels = async (req: Request, res: Response) => {
   try {
     const imageFiles = req.files as Express.Multer.File[];
     const newHotel: HotelType = req.body;
-    console.log("Whole body log:",newHotel)
+    console.log("Whole body log:", newHotel);
     const imageUrls = await uploadImages(imageFiles);
 
     newHotel.imageUrls = imageUrls;
@@ -85,11 +85,29 @@ async function uploadImages(imageFiles: Express.Multer.File[]) {
 }
 
 const hotelSearch = async (req: Request, res: Response) => {
+  const query = SearchQuery(req.query);
+  let sortOptions = {};
+
+  switch (req.query.sortOption) {
+    case "starRating":
+      sortOptions = { starRating: -1 };
+      break;
+    case "pricePerNightAsc":
+      sortOptions = { pricePerNight: 1 };
+      break;
+    case "pricePerNightDesc":
+      sortOptions = { pricePerNight: -1 };
+      break;
+  }
+
   let pageSize = 5;
   let pageNumber = parseInt(req.query.page ? req.query.page.toString() : "1");
   let skip = (pageNumber - 1) * pageSize;
   try {
-    const hotel = await Hotel.find().skip(skip).limit(pageSize);
+    const hotel = await Hotel.find(query)
+      .sort(sortOptions)
+      .skip(skip)
+      .limit(pageSize);
 
     const total = await Hotel.countDocuments();
 
@@ -106,6 +124,61 @@ const hotelSearch = async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ message: "Hotel search error" });
   }
+};
+
+//TODO
+const SearchQuery = (queryParams: any) => {
+  let constructedQuery: any = {};
+
+  if (queryParams.destination) {
+    constructedQuery.$or = [
+      { city: new RegExp(queryParams.destination, "i") },
+      { country: new RegExp(queryParams.destination, "i") },
+    ];
+  }
+
+  if (queryParams.adultCount) {
+    constructedQuery.adultCount = {
+      $gte: parseInt(queryParams.adultCount),
+    };
+  }
+
+  if (queryParams.childCount) {
+    constructedQuery.childCount = {
+      $gte: parseInt(queryParams.childCount),
+    };
+  }
+
+  if (queryParams.facilities) {
+    constructedQuery.facilities = {
+      $all: Array.isArray(queryParams.facilities)
+        ? queryParams.facilities
+        : [queryParams.facilities],
+    };
+  }
+
+  if (queryParams.types) {
+    constructedQuery.type = {
+      $in: Array.isArray(queryParams.types)
+        ? queryParams.types
+        : [queryParams.types],
+    };
+  }
+
+  if (queryParams.stars) {
+    const starRatings = Array.isArray(queryParams.stars)
+      ? queryParams.stars.map((star: string) => parseInt(star))
+      : parseInt(queryParams.stars);
+
+    constructedQuery.starRating = { $in: starRatings };
+  }
+
+  if (queryParams.maxPrice) {
+    constructedQuery.pricePerNight = {
+      $lte: parseInt(queryParams.maxPrice).toString(),
+    };
+  }
+  return constructedQuery;
 };
 
 export {
