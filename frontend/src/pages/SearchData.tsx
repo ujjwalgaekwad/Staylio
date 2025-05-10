@@ -2,6 +2,7 @@ import Card from "@/components/Card";
 import FacilitiesFilter from "@/components/FacilitiesFilter";
 import HotelTypeFilter from "@/components/HotelTypeFilter";
 import Pagination from "@/components/Pagination";
+import PriceFilter from "@/components/PriceFilter";
 import StarRatingFilter from "@/components/StarRatingFilter";
 import { useSearchContext } from "@/contexts/SearchContext";
 import { searchHotels } from "@/utils/api";
@@ -13,6 +14,8 @@ const SearchData = () => {
   const [selectedStar, setSelectedStar] = useState<string[]>([]);
   const [selectHotelType, setSelectHotelType] = useState<string[]>([]);
   const [selectFacilities, setSelectFacilities] = useState<string[]>([]);
+  const [selectPrice, setSelectPrice] = useState<number | undefined>();
+  const [sortOption, setSortOption] = useState<string>("");
 
   const search = useSearchContext();
 
@@ -26,6 +29,8 @@ const SearchData = () => {
     stars: selectedStar,
     types: selectHotelType,
     facilities: selectFacilities,
+    maxPrice: selectPrice?.toString(),
+    sortOption,
   };
 
   const { data: hotelData } = useQuery({
@@ -65,6 +70,10 @@ const SearchData = () => {
     <div className="w-full flex gap-6 px-6 py-8">
       <div className="w-1/4 sticky top-24 self-start p-4 rounded-md space-y-6">
         <h1 className="text-xl font-bold text-gray-800">Filter By:</h1>
+        <PriceFilter
+          onChange={(value?: number) => setSelectPrice(value)}
+          selectedPrice={selectPrice}
+        />
         <StarRatingFilter selected={selectedStar} onChange={handleStarSelect} />
         <HotelTypeFilter
           selectedHotelType={selectHotelType}
@@ -77,6 +86,20 @@ const SearchData = () => {
       </div>
 
       <div className="w-3/4 space-y-6">
+        <div>
+          <select
+            title="Sort by"
+            className="px-4 py-2 border rounded-md"
+            name="Sort Options"
+            value={sortOption}
+            onChange={(event) => setSortOption(event.target.value)}
+          >
+            <option value="">Sort Option</option>
+            <option value="starRating">Star Rating</option>
+            <option value="pricePerNightAsc">Low to high</option>
+            <option value="pricePerNightDesc">High to low</option>
+          </select>
+        </div>
         {hotelData?.data.map((hotelData) => (
           <div key={hotelData.name}>
             <Card hotelData={hotelData} />
