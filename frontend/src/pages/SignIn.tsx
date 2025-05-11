@@ -10,7 +10,7 @@ import {
   CardContent,
   CardFooter,
 } from "@/components/ui/card";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SignInFormData } from "@/types/Types";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as apiClient from "../utils/api";
@@ -19,9 +19,10 @@ import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginForm() {
-  const [showPassword, setShowPassword] = useState<Boolean>(false)
+  const [showPassword, setShowPassword] = useState<Boolean>(false);
   const queryClient = useQueryClient();
   const naviagte = useNavigate();
+  const location = useLocation();
   const { showToast } = useAppContext();
   const {
     register,
@@ -36,7 +37,7 @@ export default function LoginForm() {
       await queryClient.invalidateQueries({
         queryKey: ["validateToken"],
       });
-      naviagte("/");
+      naviagte(location.state?.from?.pathname || "/");
     },
     onError: async (error) => {
       showToast({ message: error.message, type: "Error" });
@@ -52,7 +53,9 @@ export default function LoginForm() {
       <Card className="w-full max-w-md">
         <form onSubmit={onSubmit}>
           <CardHeader>
-            <CardTitle className="text-2xl text-center"><h1>Sign In</h1></CardTitle>
+            <CardTitle className="text-2xl text-center">
+              <h1>Sign In</h1>
+            </CardTitle>
             <CardDescription className="text-center">
               Enter your email and password to sign in
             </CardDescription>
@@ -74,19 +77,21 @@ export default function LoginForm() {
             <div className="space-y-2 mb-4">
               <Label htmlFor="password">Password</Label>
               <div className="relative">
-              <Input
-                id="password"
-                type={showPassword ? "text": "password"}
-                placeholder="Enter your valid password"
-                {...register("password", { required: "Password is required" })}
-              />
-              <button 
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-              className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
-              >
-                {showPassword ? <Eye size={20}/>: <EyeOff size={20}/>}
-              </button>
+                <Input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Enter your valid password"
+                  {...register("password", {
+                    required: "Password is required",
+                  })}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
+                >
+                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                </button>
               </div>
               {errors.password && (
                 <p className="text-sm text-red-600">

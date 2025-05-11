@@ -16,9 +16,11 @@ import { FormEvent, useState } from "react";
 import { format } from "date-fns";
 import { useSearchContext } from "@/contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
+import { useAppContext } from "@/contexts/AppContext";
 
 function SearchBar() {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAppContext();
   const search = useSearchContext();
 
   const [destination, setDestination] = useState<string>(search.destination);
@@ -36,8 +38,11 @@ function SearchBar() {
       childCount,
       adultCount
     );
+
+    if (!isLoggedIn) return navigate("/register");
     navigate("/search");
   };
+
   return (
     <form
       onSubmit={handleSubmit}

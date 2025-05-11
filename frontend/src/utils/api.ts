@@ -150,3 +150,19 @@ export const searchHotels = async (
 
   return response.json();
 };
+
+export const hotelDetailById = async (hotelId: string): Promise<HotelType> => {
+  const response = await fetch(`${apiRoutes.searchHotels}/detail/${hotelId}`, {
+    method: "GET",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error("fetch hotel data by id faild");
+  }
+
+  return response.json();
+};

@@ -55,7 +55,6 @@ export default function HotelCard({ hotelData }: Props) {
               </span>
             )}
           </div>
-
           <div className="flex flex-col items-start sm:items-end gap-1">
             <span className="text-lg font-bold">
               ₹ {hotelData.pricePerNight}{" "}

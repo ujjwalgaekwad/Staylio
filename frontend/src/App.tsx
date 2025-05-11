@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import Hotels from "./pages/Hotels";
 import EditHotel from "./pages/EditHotel";
 import SearchData from "./pages/SearchData";
+import Details from "./pages/Details";
 
 function App() {
   const { isLoggedIn } = useAppContext();
@@ -23,37 +24,21 @@ function App() {
             </Layout>
           }
         />
-        <Route
-          path="/register"
-          element={
-            <Layout>
-              <RegisterForm />
-            </Layout>
-          }
-        />
-        <Route
-          path="/login"
-          element={
-            <Layout>
-              <LoginForm />
-            </Layout>
-          }
-        />
-        <Route
-          path="*"
-          element={
-            <Layout>
-              <NotFound />
-            </Layout>
-          }
-        />
-        {isLoggedIn && (
+        {isLoggedIn ? (
           <>
             <Route
               path="/add-hotels"
               element={
                 <Layout>
                   <AddHotels />
+                </Layout>
+              }
+            />
+            <Route
+              path="*"
+              element={
+                <Layout>
+                  <NotFound />
                 </Layout>
               }
             />
@@ -78,6 +63,33 @@ function App() {
               element={
                 <Layout>
                   <SearchData />
+                </Layout>
+              }
+            />
+            <Route
+              path="/detail/:hotelId"
+              element={
+                <Layout>
+                  <Details />
+                </Layout>
+              }
+            />
+          </>
+        ) : (
+          <>
+            <Route
+              path="/register"
+              element={
+                <Layout>
+                  <RegisterForm />
+                </Layout>
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                <Layout>
+                  <LoginForm />
                 </Layout>
               }
             />
