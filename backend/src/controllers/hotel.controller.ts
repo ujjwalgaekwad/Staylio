@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import { v2 as cloudinary } from "cloudinary";
 import { HotelSearchResponse, HotelType } from "../types/Types";
 import { Hotel } from "../models/hotels.model";
+import { validationResult } from "express-validator";
 
 const addHotels = async (req: Request, res: Response) => {
   try {
@@ -181,10 +182,28 @@ const SearchQuery = (queryParams: any) => {
   return constructedQuery;
 };
 
+const fetchHotelDetailById = async (req: Request, res: Response) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    res.status(400).json({ errors: errors.array() });
+  }
+
+  const id = req.params.id.toString();
+
+  try {
+    const hotel = await Hotel.findById(id);
+    res.json(hotel);
+  } catch (error) {
+    console.log("Details hotel by id", error);
+    res.status(500).json({ error: "hotel details" });
+  }
+};
+
 export {
   addHotels,
   fetchHotels,
   fetchHotelById,
   findAndUpdateHotel,
   hotelSearch,
+  fetchHotelDetailById,
 };

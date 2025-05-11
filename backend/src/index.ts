@@ -35,7 +35,6 @@ app.use("/api/auth", authRouter);
 app.use("/api/user", registerRouter);
 app.use("/api/hotels", myhotels);
 app.use("/api/hotelSearch", searchRoutes);
-
 // app.get("*", (req: Request, res: Response) => {
 //   res.sendFile(path.join(__dirname, "../../frontend/dist/index.html"));
 // })

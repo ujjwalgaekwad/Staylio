@@ -1,4 +1,4 @@
-import { Request, Response, Router } from "express";
+import { Router } from "express";
 import verifyToken from "../middlewares/auth.middlewares";
 import { body } from "express-validator";
 import {
