@@ -34,8 +34,10 @@ const PriceFilter = ({ selectedPrice, onChange }: Props) => {
             "12000",
             "15000",
             "20000",
-          ].map((price) => (
-            <option value={price}>{price}</option>
+          ].map((price, index) => (
+            <option key={index} value={price}>
+              {price}
+            </option>
           ))}
         </select>
       </div>

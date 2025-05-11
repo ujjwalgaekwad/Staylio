@@ -9,7 +9,7 @@ const Pagination = ({ onPageChange, page, pages }: Props) => {
   for (let i = 1; i <= pages; i++) {
     totalPages.push(i);
   }
-  console.log("total page:", totalPages);
+  
   return (
     <div className="flex justify-center">
       <ul className="flex border border-slate-300">

@@ -3,6 +3,7 @@ import FacilitiesFilter from "@/components/FacilitiesFilter";
 import HotelTypeFilter from "@/components/HotelTypeFilter";
 import Pagination from "@/components/Pagination";
 import PriceFilter from "@/components/PriceFilter";
+import SearchBar from "@/components/SearchBar";
 import StarRatingFilter from "@/components/StarRatingFilter";
 import { useSearchContext } from "@/contexts/SearchContext";
 import { searchHotels } from "@/utils/api";
@@ -68,8 +69,10 @@ const SearchData = () => {
 
   return (
     <div className="w-full flex gap-6 px-6 py-8">
-      <div className="w-1/4 sticky top-24 self-start p-4 rounded-md space-y-6">
-        <h1 className="text-xl font-bold text-gray-800">Filter By:</h1>
+      <div className="md:w-1/4 w-full sticky top-24 self-start p-4 bg-white shadow rounded-lg space-y-6 border border-gray-200">
+        <h1 className="text-lg font-semibold text-gray-800 border-b pb-2">
+          Filter By:
+        </h1>
         <PriceFilter
           onChange={(value?: number) => setSelectPrice(value)}
           selectedPrice={selectPrice}
@@ -86,7 +89,11 @@ const SearchData = () => {
       </div>
 
       <div className="w-3/4 space-y-6">
-        <div>
+        <div className="flex">
+          {hotelData?.pagination.total} found in
+          {hotelData?.data.map((cityName) => (
+            <h1>{cityName.city}</h1>
+          ))}
           <select
             title="Sort by"
             className="px-4 py-2 border rounded-md"
