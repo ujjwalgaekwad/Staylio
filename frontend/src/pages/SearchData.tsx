@@ -3,7 +3,6 @@ import FacilitiesFilter from "@/components/FacilitiesFilter";
 import HotelTypeFilter from "@/components/HotelTypeFilter";
 import Pagination from "@/components/Pagination";
 import PriceFilter from "@/components/PriceFilter";
-import SearchBar from "@/components/SearchBar";
 import StarRatingFilter from "@/components/StarRatingFilter";
 import { useSearchContext } from "@/contexts/SearchContext";
 import { searchHotels } from "@/utils/api";
@@ -33,7 +32,6 @@ const SearchData = () => {
     maxPrice: selectPrice?.toString(),
     sortOption,
   };
-
   const { data: hotelData } = useQuery({
     queryKey: ["searchHotels", searchParams],
     queryFn: () => searchHotels(searchParams),
@@ -69,6 +67,7 @@ const SearchData = () => {
 
   return (
     <div className="w-full flex gap-6 px-6 py-8">
+      {/* searchBar */}
       <div className="md:w-1/4 w-full sticky top-24 self-start p-4 bg-white shadow rounded-lg space-y-6 border border-gray-200">
         <h1 className="text-lg font-semibold text-gray-800 border-b pb-2">
           Filter By:
@@ -91,8 +90,8 @@ const SearchData = () => {
       <div className="w-3/4 space-y-6">
         <div className="flex">
           {hotelData?.pagination.total} found in
-          {hotelData?.data.map((cityName) => (
-            <h1>{cityName.city}</h1>
+          {hotelData?.data.map((cityName, index) => (
+            <h1 key={index}>{cityName.city}</h1>
           ))}
           <select
             title="Sort by"

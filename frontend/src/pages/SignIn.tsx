@@ -16,7 +16,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as apiClient from "../utils/api";
 import { useAppContext } from "@/contexts/AppContext";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
@@ -67,7 +67,12 @@ export default function LoginForm() {
                 id="email"
                 type="email"
                 placeholder="Email Address"
-                {...register("email", { required: "Email is required" })}
+                {...register("email", {
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Invalid email format",
+                  },
+                })}
               />
               {errors.email && (
                 <p className="text-sm text-red-600">{errors.email.message}</p>
@@ -90,7 +95,7 @@ export default function LoginForm() {
                   onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
                 >
-                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                  {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
                 </button>
               </div>
               {errors.password && (

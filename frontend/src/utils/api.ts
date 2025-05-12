@@ -4,6 +4,7 @@ import {
   RegisterFormData,
   SearchHotels,
   SignInFormData,
+  UserType,
 } from "@/types/Types";
 import { apiRoutes } from "./apiRoutes";
 
@@ -61,6 +62,18 @@ export const logout = async () => {
   if (!response.ok) {
     throw new Error("Error during logout");
   }
+};
+
+export const fetchCurrentUser = async (): Promise<UserType> => {
+  const response = await fetch(`${apiRoutes.getCurrentUser}`, {
+    credentials: "include",
+  });
+
+  if (!response.ok) {
+    throw new Error("User not found");
+  }
+
+  return response.json();
 };
 
 export const addHotelData = async (HotelFormData: FormData) => {
@@ -156,8 +169,8 @@ export const hotelDetailById = async (hotelId: string): Promise<HotelType> => {
     method: "GET",
     credentials: "include",
     headers: {
-      "Content-Type": "application/json"
-    }
+      "Content-Type": "application/json",
+    },
   });
 
   if (!response.ok) {

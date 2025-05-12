@@ -16,7 +16,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAppContext } from "@/contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeClosed } from "lucide-react";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
@@ -57,7 +57,7 @@ export default function RegisterForm() {
         <form onSubmit={onSubmit}>
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold text-center">
-             <h1>Sign up</h1>
+              <h1>Sign up</h1>
             </CardTitle>
             <CardDescription className="text-center">
               Enter your information to create an account
@@ -103,7 +103,10 @@ export default function RegisterForm() {
                 type="email"
                 placeholder="Email address"
                 {...register("email", {
-                  required: "Please enter a valid email.",
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: "Invalid email format",
+                  },
                 })}
               />
               {errors.email && (
@@ -138,7 +141,7 @@ export default function RegisterForm() {
                   onClick={() => setShowPassword((prev) => !prev)}
                   className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
                 >
-                  {showPassword ? <Eye size={20} /> : <EyeOff size={20} />}
+                  {showPassword ? <EyeClosed size={20} /> : <Eye size={20} />}
                 </button>
               </div>
               {errors.password && (
@@ -165,11 +168,16 @@ export default function RegisterForm() {
                     },
                   })}
                 />
-                <button 
-                type="button"
-                className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
-                onClick={() => setShowConfirmPassword((prev) => !prev)}>
-                  {showConfirmPassword ? <Eye size={20}/> : <EyeOff size={20}/>}
+                <button
+                  type="button"
+                  className="absolute top-1/2 right-3 -translate-y-1/2 text-muted-foreground hover:text-foreground focus:outline-none cursor-pointer"
+                  onClick={() => setShowConfirmPassword((prev) => !prev)}
+                >
+                  {showConfirmPassword ? (
+                    <EyeClosed size={20} />
+                  ) : (
+                    <Eye size={20} />
+                  )}
                 </button>
               </div>
               {errors.confirmPassword && (

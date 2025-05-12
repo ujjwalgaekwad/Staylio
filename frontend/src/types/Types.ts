@@ -58,7 +58,7 @@ export type HotelType = {
   pricePerNight: number;
   starRating: number;
   imageFiles: string[];
-  imageUrls: string[]
+  imageUrls: string[];
   lastUpdated: Date;
 };
 
@@ -100,3 +100,11 @@ export interface HotelSearchResponse {
     pages: number;
   };
 }
+
+export type UserType = {
+  _id: string;
+  email: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};

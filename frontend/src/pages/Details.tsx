@@ -20,10 +20,8 @@ const Details = () => {
             <Star key={i} className="w-4 h-4 fill-yellow-400" />
           ))}
         </div>
-        <h1 className="text-3xl font-bold text-foreground">{hotelData?.name}</h1>
+        <h1 className="text-3xl font-bold text-foreground">{hotelData?.name || "TAj Sky"}</h1>
       </div>
-
-      {/* Images */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {hotelData?.imageUrls.map((image, index) => (
           <div key={index} className="rounded-xl overflow-hidden h-60 shadow-md">
@@ -35,8 +33,6 @@ const Details = () => {
           </div>
         ))}
       </div>
-
-      {/* Facilities */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
         {hotelData?.facilities.map((facility: string, index: number) => (
           <div
@@ -47,8 +43,6 @@ const Details = () => {
           </div>
         ))}
       </div>
-
-      {/* Description + Booking */}
       <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
         <div className="whitespace-pre-line text-base text-muted-foreground">
           {hotelData?.description}
