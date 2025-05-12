@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { check } from "express-validator";
 import verifyToken from "../middlewares/auth.middlewares";
-import { register } from "../controllers/auth.controller";
+import { fetchCurrentUser, register } from "../controllers/auth.controller";
 
 const router = express.Router();
 
@@ -29,5 +29,7 @@ router.post("/logout", (req: Request, res: Response) => {
   });
   res.send();
 });
+
+router.get("/me", verifyToken, fetchCurrentUser);
 
 export default router;

@@ -77,4 +77,18 @@ const register = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-export { auth, register };
+const fetchCurrentUser = async (req: Request, res: Response) => {
+  const userId = req.userId;
+  try {
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      res.status(404).json({ message: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    console.log("User not found", error);
+    res.status(500).json({ message: "User not found" });
+  }
+};
+
+export { auth, register, fetchCurrentUser };
