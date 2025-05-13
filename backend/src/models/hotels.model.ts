@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { HotelType } from "../types/Types";
+import { Bookings } from "./booking.model";
 
 const hotelSchema = new mongoose.Schema<HotelType>(
   {
@@ -61,6 +62,7 @@ const hotelSchema = new mongoose.Schema<HotelType>(
       type: Date,
       required: true,
     },
+    bookings: [Bookings],
   },
   { timestamps: true }
 );
