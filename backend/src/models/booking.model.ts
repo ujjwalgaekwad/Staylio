@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { BookingType } from "../types/Types";
 
 const bookingSchema = new mongoose.Schema({
   firstName: {
@@ -41,4 +40,4 @@ const bookingSchema = new mongoose.Schema({
   },
 });
 
-export const Bookings = mongoose.model<BookingType>("Bookings", bookingSchema);
+export default bookingSchema;
