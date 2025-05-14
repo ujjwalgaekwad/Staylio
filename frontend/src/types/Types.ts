@@ -1,3 +1,5 @@
+import { Stripe } from "@stripe/stripe-js";
+
 export type RegisterFormData = {
   firstName: string;
   lastName: string;
@@ -15,6 +17,7 @@ export type ToastMessage = {
 export type AppContext = {
   showToast: (toastMessage: ToastMessage) => void;
   isLoggedIn: boolean;
+  stripePromise: Promise<Stripe | null>
 };
 
 export type ToastProps = {
@@ -108,3 +111,9 @@ export type UserType = {
   firstName: string;
   lastName: string;
 };
+
+export interface PaymentIntentResponse {
+  paymentIntent: string;
+  clientSecret: string;
+  totalCost: number;
+}

@@ -3,8 +3,10 @@ import Toast from "@/components/Toast";
 import { AppContext, ToastMessage } from "@/types/Types";
 import { useQuery } from "@tanstack/react-query";
 import * as auth from "../utils/api";
+import { loadStripe, Stripe } from "@stripe/stripe-js";
 
 export const AppContenxt = createContext<AppContext | undefined>(undefined);
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_SCRET_KEY || "");
 
 export const AppContextProvider = ({ children }: { children: ReactNode }) => {
   const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
@@ -24,7 +26,8 @@ export const AppContextProvider = ({ children }: { children: ReactNode }) => {
         showToast: (toastMessage) => {
           setToast(toastMessage);
         },
-        isLoggedIn: !isError
+        isLoggedIn: !isError,
+        stripePromise
       }}
     >
       {toast && (

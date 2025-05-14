@@ -1,4 +1,7 @@
+import Feedback from "@/components/Feedback";
+import Rewards from "@/components/Rewards";
 import SearchBar from "@/components/SearchBar";
+import SpecialOffers from "@/components/SpecialOffers";
 
 function HomePage() {
   return (
@@ -12,6 +15,9 @@ function HomePage() {
           prices.
         </p>
         <SearchBar />
+        <Feedback/>
+        <Rewards/>
+        <SpecialOffers/>
       </div>
       <div className="absolute inset-0 bg-gradient-to-r z-0"></div>
     </div>

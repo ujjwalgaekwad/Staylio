@@ -2,10 +2,12 @@ import { useForm } from "react-hook-form"
 import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Card, CardHeader, CardTitle, CardContent } from "./ui/card"
-import { UserType } from "@/types/Types"
+import { PaymentIntentResponse, UserType } from "@/types/Types"
+import { CardElement } from "@stripe/react-stripe-js"
 
 type Props = {
-  currentUser: UserType
+  currentUser: UserType;
+  paymentIntent: PaymentIntentResponse;
 }
 
 interface BookingFormData {
@@ -14,7 +16,7 @@ interface BookingFormData {
   email: string
 }
 
-const BookingForm = ({ currentUser }: Props) => {
+const BookingForm = ({ currentUser, paymentIntent }: Props) => {
   const {
     register,
     formState: { errors },
@@ -63,6 +65,16 @@ const BookingForm = ({ currentUser }: Props) => {
             {...register("email")}
           />
         </div>
+        <div className="space-y-2">
+          <h1 className="font-semibold text-sm">Payment Summary:</h1>
+          <div className="bg-blue-200 p-4 rounded-md">
+            <span className="font-semibold">₹ {paymentIntent.totalCost.toFixed(2)}</span>
+            <span> To included all taxes</span>
+          </div>
+        </div>
+        <div className="space-y-2">
+            <CardElement id="payment-intent" className="text-sm rounded-md p-2"/>
+          </div>
       </CardContent>
     </Card>
   )

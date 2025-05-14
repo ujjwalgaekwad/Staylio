@@ -1,19 +1,24 @@
 import BookingDetailSummary from "@/components/BookingDetailSummary";
 import BookingForm from "@/components/BookingForm";
+import { useAppContext } from "@/contexts/AppContext";
 import { useSearchContext } from "@/contexts/SearchContext";
-import { fetchCurrentUser } from "@/utils/api";
+import { createPaymentIntent, fetchCurrentUser } from "@/utils/api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { Elements } from "@stripe/react-stripe-js";
 
 const Booking = () => {
+  const {stripePromise} = useAppContext();
+  const { hotelId } = useParams();
   const [numberOfNights, setNumberOfNight] = useState<number>(0);
   const search = useSearchContext();
 
   useEffect(() => {
     if (search.checkIn && search.checkOut) {
       const nights = Math.abs(
-        (search.checkOut.getTime() -
-          search.checkIn.getTime() )/ (1000 * 60 * 60 * 24)
+        (search.checkOut.getTime() - search.checkIn.getTime()) /
+          (1000 * 60 * 60 * 24)
       );
       setNumberOfNight(Math.ceil(nights));
     }
@@ -23,9 +28,16 @@ const Booking = () => {
     queryKey: ["fetchCurrentUser"],
     queryFn: () => fetchCurrentUser(),
   });
-  
+
+  const { data: paymentIntentData } = useQuery({
+    queryKey: ["createPaymentIntent"],
+    queryFn: () =>
+      createPaymentIntent(hotelId as string, numberOfNights.toString()),
+    enabled: !!hotelId,
+  });
+
   return (
-     <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <div className="container mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
       <BookingDetailSummary
         checkIn={search.checkIn}
         checkOut={search.checkOut}
@@ -33,7 +45,13 @@ const Booking = () => {
         childCount={search.childCount}
         numberOfNights={numberOfNights}
       />
-      {currentUser && <BookingForm currentUser={currentUser} />}
+      {currentUser && paymentIntentData && (
+        <Elements stripe={stripePromise} options={{
+          clientSecret: paymentIntentData.clientSecret
+        }}>
+          <BookingForm currentUser={currentUser} paymentIntent={paymentIntentData}/>
+        </Elements>
+      )}
     </div>
   );
 };

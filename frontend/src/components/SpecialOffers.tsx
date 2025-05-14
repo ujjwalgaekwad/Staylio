@@ -19,7 +19,7 @@ function SpecialOffers() {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-2/5">
                 <img
-                  src="/placeholder.svg?height=300&width=300"
+                  src=""
                   alt="Summer Escape"
                   width={300}
                   height={300}
@@ -49,13 +49,13 @@ function SpecialOffers() {
           <Card className="overflow-hidden">
             <div className="flex flex-col md:flex-row">
               <div className="md:w-2/5">
-                {/* <Image
-                      src="/placeholder.svg?height=300&width=300"
-                      alt="City Break"
-                      width={300}
-                      height={300}
-                      className="object-cover w-full h-full"
-                    /> */}
+                <img
+                  src=""
+                  alt="City Break"
+                  width={300}
+                  height={300}
+                  className="object-cover w-full h-full"
+                />
               </div>
               <div className="md:w-3/5 p-6">
                 <Badge className="mb-2 bg-blue-500">Weekend Special</Badge>

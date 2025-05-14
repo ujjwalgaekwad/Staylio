@@ -1,6 +1,7 @@
 import {
   HotelSearchResponse,
   HotelType,
+  PaymentIntentResponse,
   RegisterFormData,
   SearchHotels,
   SignInFormData,
@@ -179,3 +180,20 @@ export const hotelDetailById = async (hotelId: string): Promise<HotelType> => {
 
   return response.json();
 };
+
+export const createPaymentIntent = async (hotelId: string, numberOfNights: string): Promise<PaymentIntentResponse> => {
+  const response = await fetch(`${apiRoutes.searchHotels}/${hotelId}/bookings/payment-intent`, {
+    credentials: "include",
+    method: "POST",
+    body: JSON.stringify({numberOfNights}),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  });
+
+  if(!response.ok) {
+    throw new Error("Error in create payment intent");
+  }
+
+  return response.json();
+}
