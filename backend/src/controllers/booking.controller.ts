@@ -15,10 +15,10 @@ const paymentIntent = async (req: Request, res: Response) => {
   }
 
   const totalCost = hotel.pricePerNight * numberOfNights;
-
+ 
   const paymentIntent = await stripe.paymentIntents.create({
     amount: totalCost,
-    currency: "gbp",
+    currency: "INR",
     metadata: {
       hotelId,
       userId: req.userId,

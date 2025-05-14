@@ -12,7 +12,7 @@ router.get("/search", hotelSearch);
 
 router.get("/detail/:id", fetchHotelDetailById);
 
-router.post("/:hotelId/bookings/payment-intent", verifyToken, paymentIntent);
+router.post("/payment/:hotelId/bookings/payment-intent", verifyToken, paymentIntent);
 
 router.post("/:hotelId/bookings", verifyToken, Bookings);
 

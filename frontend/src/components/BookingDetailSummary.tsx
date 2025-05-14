@@ -1,22 +1,16 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
-import { hotelDetailById } from "@/utils/api"
-import { useQuery } from "@tanstack/react-query"
-import { format } from "date-fns"
-import { useParams } from "react-router-dom"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { HotelType } from "@/types/Types";
+import { format } from "date-fns";
 
 type Props = {
-  checkIn: Date
-  checkOut: Date
-  adultCount: number
-  childCount: number
-  numberOfNights: number
-}
+  checkIn: Date;
+  checkOut: Date;
+  adultCount: number;
+  childCount: number;
+  numberOfNights: number;
+  hotelData: HotelType;
+};
 
 const BookingDetailSummary = ({
   adultCount,
@@ -24,14 +18,8 @@ const BookingDetailSummary = ({
   checkIn,
   checkOut,
   numberOfNights,
+  hotelData,
 }: Props) => {
-  const { hotelId } = useParams()
-  const { data: hotelData } = useQuery({
-    queryKey: ["hotelDetailById", hotelId],
-    queryFn: () => hotelDetailById(hotelId as string),
-    enabled: !!hotelId,
-  })
-
   return (
     <Card className="border">
       <CardHeader>
@@ -40,7 +28,9 @@ const BookingDetailSummary = ({
       <CardContent className="space-y-4 text-sm">
         <div>
           <p className="text-muted-foreground">Hotel</p>
-          <p className="font-medium text-base">{`${hotelData?.name} ${hotelData?.city}`} </p>
+          <p className="font-medium text-base">
+            {`${hotelData?.name} ${hotelData?.city}`}{" "}
+          </p>
         </div>
         <Separator />
         <div className="grid grid-cols-2 gap-4">
@@ -67,7 +57,7 @@ const BookingDetailSummary = ({
         </div>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default BookingDetailSummary
+export default BookingDetailSummary;

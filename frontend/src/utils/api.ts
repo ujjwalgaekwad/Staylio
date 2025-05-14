@@ -1,4 +1,5 @@
 import {
+  BookingFormData,
   HotelSearchResponse,
   HotelType,
   PaymentIntentResponse,
@@ -181,19 +182,48 @@ export const hotelDetailById = async (hotelId: string): Promise<HotelType> => {
   return response.json();
 };
 
-export const createPaymentIntent = async (hotelId: string, numberOfNights: string): Promise<PaymentIntentResponse> => {
-  const response = await fetch(`${apiRoutes.searchHotels}/${hotelId}/bookings/payment-intent`, {
-    credentials: "include",
-    method: "POST",
-    body: JSON.stringify({numberOfNights}),
-    headers: {
-      "Content-Type": "application/json"
+export const createPaymentIntent = async (
+  hotelId: string,
+  numberOfNights: string
+): Promise<PaymentIntentResponse> => {
+  const response = await fetch(
+    `${apiRoutes.searchHotels}/payment/${hotelId}/bookings/payment-intent`,
+    {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify({ numberOfNights }),
+      headers: {
+        "Content-Type": "application/json",
+      },
     }
-  });
+  );
 
-  if(!response.ok) {
+  if (!response.ok) {
     throw new Error("Error in create payment intent");
   }
 
   return response.json();
-}
+};
+
+export const createBooking = async (
+  formData: BookingFormData,
+  hotelId: string
+) => {
+  const response = await fetch(
+    `${apiRoutes.searchHotels}/${hotelId}/bookings`,
+    {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error("Booking faild");
+  }
+
+  return response.json();
+};

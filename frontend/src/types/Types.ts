@@ -117,3 +117,16 @@ export interface PaymentIntentResponse {
   clientSecret: string;
   totalCost: number;
 }
+
+export interface BookingFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  adultCount: number;
+  childCount: number;
+  checkIn: string;
+  checkOut: string;
+  hotelId: string;
+  totalCost: number;
+  paymentIntentId?: string;
+}
