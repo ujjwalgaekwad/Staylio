@@ -4,23 +4,30 @@ import { User } from "../models/user.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-const auth = async (req: Request, res: Response): Promise<any> => {
+const auth = async (req: Request, res: Response): Promise<void> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ message: errors.array() });
+    res.status(400).json({ message: errors.array() });
+    return;
   }
 
   const { email, password } = req.body;
 
+  if ([email, password].some((field) => field?.trim() === "")) {
+    throw new Error("All fields are required.");
+  }
+
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).json({ message: "Invalid User" });
+      res.status(400).json({ message: "Invalid User" });
+      return;
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({ message: "Invalid Password" });
+      res.status(400).json({ message: "Invalid Password" });
+      return;
     }
 
     const token = jwt.sign(
@@ -39,20 +46,22 @@ const auth = async (req: Request, res: Response): Promise<any> => {
     res.status(200).json({ userId: user._id });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Invalid Credentials" });
+    res.status(500).json({ message: "Invalid Credentials" });
   }
 };
 
-const register = async (req: Request, res: Response): Promise<any> => {
+const register = async (req: Request, res: Response): Promise<void> => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ message: errors.array() });
+    res.status(400).json({ message: errors.array() });
+    return;
   }
   try {
     let user = await User.findOne({ email: req.body.email });
 
     if (user) {
-      return res.status(400).json({ message: "User already exists." });
+      res.status(400).json({ message: "User already exists." });
+      return;
     }
 
     user = new User(req.body);
@@ -70,10 +79,10 @@ const register = async (req: Request, res: Response): Promise<any> => {
       maxAge: 86400000,
     });
 
-    return res.status(200).json({ message: "User registered successfully." });
+    res.status(200).json({ message: "User registered successfully." });
   } catch (error) {
     console.error("Registration error:", error);
-    return res.status(500).json({ message: "Internal server error." });
+    res.status(500).json({ message: "Internal server error." });
   }
 };
 
