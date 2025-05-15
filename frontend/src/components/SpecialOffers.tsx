@@ -19,7 +19,7 @@ function SpecialOffers() {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-2/5">
                 <img
-                  src=""
+                  src="./special.png"
                   alt="Summer Escape"
                   width={300}
                   height={300}
@@ -50,7 +50,7 @@ function SpecialOffers() {
             <div className="flex flex-col md:flex-row">
               <div className="md:w-2/5">
                 <img
-                  src=""
+                  src="./special.png"
                   alt="City Break"
                   width={300}
                   height={300}

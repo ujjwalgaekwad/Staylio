@@ -226,3 +226,16 @@ export const createBooking = async (
 
   return response.json();
 };
+
+
+export const myBookingData = async() => {
+  const response = await fetch(`${apiRoutes.searchHotels}/mybookings`, {
+    credentials: "include"
+  });
+
+  if(!response.ok) {
+    throw new Error("Booking data not found")
+  }
+
+  return response.json();
+}

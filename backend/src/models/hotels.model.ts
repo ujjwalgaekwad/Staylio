@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { HotelType } from "../types/Types";
+import { BookingType, HotelType } from "../types/Types";
 import bookingSchema from "./booking.model";
 
 

@@ -25,7 +25,7 @@ export type HotelType = {
 };
 
 export type BookingType = {
-  fistName: string;
+  firstName: string;
   lastName: string;
   email: string;
   checkIn: Date;

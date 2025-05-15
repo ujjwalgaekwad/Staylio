@@ -25,7 +25,7 @@ function Header() {
             {isLoggedIn ? (
               <>
                 <Link
-                  to="/hotels"
+                  to="/search"
                   className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 >
                   Hotels
@@ -37,21 +37,15 @@ function Header() {
                   Dashboard
                 </Link>
                 <Link
-                  to="#"
+                  to="/my-bookings"
                   className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
                 >
-                  Deals
+                  Bookings
                 </Link>
               </>
             ) : (
-              ""
+             ""
             )}
-            <Link
-              to="#"
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-            >
-              Contact
-            </Link>
           </nav>
         </div>
         <div className="flex items-center gap-4">
