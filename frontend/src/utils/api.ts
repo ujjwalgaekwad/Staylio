@@ -206,11 +206,10 @@ export const createPaymentIntent = async (
 };
 
 export const createBooking = async (
-  formData: BookingFormData,
-  hotelId: string
-) => {
+  formData: BookingFormData
+): Promise<PaymentIntentResponse> => {
   const response = await fetch(
-    `${apiRoutes.searchHotels}/${hotelId}/bookings`,
+    `${apiRoutes.searchHotels}/${formData.hotelId}/bookings`,
     {
       method: "POST",
       credentials: "include",

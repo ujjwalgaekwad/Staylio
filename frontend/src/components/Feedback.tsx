@@ -8,7 +8,7 @@ function Feedback() {
           <Link to="#" className="group">
             <div className="relative rounded-lg overflow-hidden">
               <img
-                src=""
+                src="./favicon.png"
                 alt=""
                 width={200}
                 height={200}

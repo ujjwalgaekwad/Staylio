@@ -113,7 +113,7 @@ export type UserType = {
 };
 
 export interface PaymentIntentResponse {
-  paymentIntent: string;
+  paymentIntentId: string;
   clientSecret: string;
   totalCost: number;
 }
