@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { Hotel } from "../models/hotels.model";
 import Stripe from "stripe";
-import { BookingType } from "../types/Types";
+import { BookingType, HotelType } from "../types/Types";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string);
 
@@ -15,7 +15,7 @@ const paymentIntent = async (req: Request, res: Response) => {
   }
 
   const totalCost = hotel.pricePerNight * numberOfNights;
- 
+
   const paymentIntent = await stripe.paymentIntents.create({
     amount: totalCost * 100,
     currency: "INR",
@@ -83,4 +83,34 @@ const Bookings = async (req: Request, res: Response) => {
   }
 };
 
-export { Bookings, paymentIntent };
+const BookingsData = async (req: Request, res: Response) => {
+  try {
+    const hotel = await Hotel.find({
+      bookings: { $elemMatch: { userId: req.userId } },
+    });
+
+    const results = hotel.map((hotel) => {
+      // If bookings are populated objects, filter by userId; otherwise, return as is
+      const bookings = Array.isArray(hotel.bookings)
+        ? hotel.bookings.filter(
+            (booking: any) =>
+              booking &&
+              typeof booking === "object" &&
+              booking.userId == req.userId
+          )
+        : [];
+      const hotelWithUserBookings: HotelType = {
+        ...hotel.toObject(),
+        bookings: bookings,
+      };
+
+      return hotelWithUserBookings;
+    });
+    res.status(200).send(results);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error });
+  }
+};
+
+export { Bookings, paymentIntent, BookingsData };
