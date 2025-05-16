@@ -3,13 +3,13 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "lucide-react";
-import { Calendar } from "./ui/calendar";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { useSearchContext } from "@/contexts/SearchContext";
 import { useLocation, useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 import { useAppContext } from "@/contexts/AppContext";
+import DatePicker from "react-datepicker";
 
 type Props = {
   pricePerNight?: number;
@@ -94,11 +94,9 @@ const BookInfoForm = ({ pricePerNight, hotelId }: Props) => {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
+              <DatePicker
                 selected={checkIn}
-                onSelect={(date) => setValue("checkIn", date as Date)}
-                initialFocus
+                onChange={(date) => setValue("checkIn", date as Date)}
               />
             </PopoverContent>
           </Popover>
@@ -119,11 +117,9 @@ const BookInfoForm = ({ pricePerNight, hotelId }: Props) => {
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0">
-              <Calendar
-                mode="single"
+              <DatePicker
                 selected={checkOut}
-                onSelect={(date) => setValue("checkOut", date as Date)}
-                initialFocus
+                onChange={(date) => setValue("checkOut", date as Date)}
               />
             </PopoverContent>
           </Popover>
