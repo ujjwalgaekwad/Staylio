@@ -137,3 +137,29 @@
 .animate-slide-in {
   animation: slide-in 0.4s ease-out forwards;
 }
+
+.react-datepicker {
+  @apply rounded-xl border border-gray-200 shadow-lg bg-white text-sm z-50;
+}
+
+.react-datepicker__header {
+  @apply bg-white border-b border-gray-200;
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+  @apply w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100;
+}
+
+.react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  @apply bg-primary text-white;
+}
+
+.react-datepicker__day--today {
+  @apply border border-primary text-primary;
+}
+
+.react-datepicker__navigation {
+  @apply top-2;
+}

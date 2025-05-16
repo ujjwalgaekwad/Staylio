@@ -12,12 +12,13 @@ import { Input } from "./ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "./ui/button";
 import { cn } from "@/lib/utils";
-import { Calendar } from "./ui/calendar";
+
 import { FormEvent, useState } from "react";
 import { format } from "date-fns";
 import { useSearchContext } from "@/contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "@/contexts/AppContext";
+import DatePicker from "react-datepicker";
 
 function SearchBar() {
   const navigate = useNavigate();
@@ -117,11 +118,9 @@ function SearchBar() {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
+                  <DatePicker
                     selected={checkIn}
-                    onSelect={(date) => setCheckIn(date as Date)}
-                    initialFocus
+                    onChange={(date) => setCheckIn(date as Date)}
                   />
                 </PopoverContent>
               </Popover>
@@ -142,11 +141,9 @@ function SearchBar() {
                   </Button>
                 </PopoverTrigger>
                 <PopoverContent className="w-auto p-0">
-                  <Calendar
-                    mode="single"
+                  <DatePicker
                     selected={checkOut}
-                    onSelect={(date) => setCheckOut(date as Date)}
-                    initialFocus
+                    onChange={(date) => setCheckOut(date as Date)}
                   />
                 </PopoverContent>
               </Popover>
