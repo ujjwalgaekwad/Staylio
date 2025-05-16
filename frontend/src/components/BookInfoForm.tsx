@@ -122,8 +122,6 @@ const BookInfoForm = ({ pricePerNight, hotelId }: Props) => {
               <DatePicker
                 selected={checkOut}
                 onChange={(date) => setValue("checkOut", date as Date)}
-                className="w-full"
-                calendarClassName="react-datepicker"
               />
             </PopoverContent>
           </Popover>
