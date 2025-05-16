@@ -1,4 +1,4 @@
-import { HotelFormData } from "@/types/Types";
+import { HotelFormData, HotelType } from "@/types/Types";
 import { FormProvider, useForm } from "react-hook-form";
 import HotelDetailsSection from "./HotelDetailsSection";
 import TypesOfHotelSection from "./TypesOfHotelSection";
@@ -11,7 +11,7 @@ import { useEffect } from "react";
 type Props = {
   onSave: (hotelFormData: FormData) => void;
   isLoading: boolean;
-  hotel?: HotelFormData;
+  hotel?: HotelType;
 };
 
 function ManageHotelForm({ onSave, isLoading, hotel }: Props) {

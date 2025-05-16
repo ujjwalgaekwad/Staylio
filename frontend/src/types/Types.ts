@@ -17,7 +17,7 @@ export type ToastMessage = {
 export type AppContext = {
   showToast: (toastMessage: ToastMessage) => void;
   isLoggedIn: boolean;
-  stripePromise: Promise<Stripe | null>
+  stripePromise: Promise<Stripe | null>;
 };
 
 export type ToastProps = {
@@ -60,9 +60,9 @@ export type HotelType = {
   facilities: string[];
   pricePerNight: number;
   starRating: number;
-  imageFiles: string[];
   imageUrls: string[];
   lastUpdated: Date;
+  bookings: BookingFormData[];
 };
 
 export interface SearchContextType {

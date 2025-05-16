@@ -26,7 +26,9 @@ function EditHotel() {
   const handleSave = (hotelFromData: FormData) => {
     mutation.mutate(hotelFromData);
   }
-
+  if(!hotel){
+  
+  }
   return <ManageHotelForm hotel={hotel} onSave={handleSave} isLoading={mutation.isPending} />;
 }
 
