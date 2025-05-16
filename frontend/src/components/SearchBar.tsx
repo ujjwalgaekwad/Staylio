@@ -47,11 +47,11 @@ function SearchBar() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="w-full bg-background rounded-xl border p-4 mt-8 flex-1"
+      className="w-full bg-background rounded-xl border p-4 md:p-10 mt-8 flex-1"
     >
       <Tabs defaultValue="hotels" className="w-full">
         <TabsContent value="hotels" className="space-y-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
             <div className="space-y-2">
               <Label htmlFor="location">Destination</Label>
               <div className="relative">
@@ -152,10 +152,20 @@ function SearchBar() {
               </Popover>
             </div>
           </div>
-          <Button className="w-full md:w-auto" type="submit">
-            <Search className="h-4 w-4" />
-            Search Hotels
-          </Button>
+          <div className="md:flex gap-2 space-y-2">
+            <Button className="w-full md:w-auto cursor-pointer" type="submit">
+              <Search className="h-4 w-4" />
+              Search Hotels
+            </Button>
+            <Button
+              variant={"delete"}
+              className="w-full md:w-auto cursor-pointer"
+              type="reset"
+            >
+              <Delete className="h-4 w-4" />
+              Clear all
+            </Button>
+          </div>
         </TabsContent>
       </Tabs>
     </form>

@@ -24,7 +24,12 @@ function SignOutButton() {
 
   return (
     <div>
-      <Button onClick={handleClick} variant={"default"} size="sm" className="hidden md:flex cursor-pointer">
+      <Button
+        onClick={handleClick}
+        size="sm"
+        variant="outline"
+        className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white cursor-pointer"
+      >
         <LogOut />
         Log out
       </Button>

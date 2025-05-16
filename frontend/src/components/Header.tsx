@@ -7,66 +7,61 @@ function Header() {
   const navigate = useNavigate();
   const { isLoggedIn } = useAppContext();
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-10">
-      <div className="container flex h-16 items-center justify-between">
-        <div className="flex items-center gap-4 md:gap-2">
-          <Link to="/" className="flex items-center space-x-2">
-            <span className="hidden font-bold sm:inline-block text-xl">
-              Staylio
-            </span>
+    <header className="w-full flex justify-between items-center mb-6 px-2 md:px-0 text-white">
+      <div className="flex items-center gap-6">
+        <Link to="/" className="text-2xl font-bold text-white">
+          Staylio
+        </Link>
+        <nav className="hidden md:flex gap-5 text-sm font-medium">
+          <Link to="/" className="hover:text-primary transition-colors">
+            Home
           </Link>
-          <nav className="hidden md:flex gap-4">
-            <Link
-              to="/"
-              className="text-sm font-medium transition-colors hover:text-primary"
-            >
-              Home
-            </Link>
-            {isLoggedIn ? (
-              <>
-                <Link
-                  to="/search"
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Hotels
-                </Link>
-                <Link
-                  to="/add-hotels"
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to="/my-bookings"
-                  className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-                >
-                  Bookings
-                </Link>
-              </>
-            ) : (
-             ""
-            )}
-          </nav>
-        </div>
-        <div className="flex items-center gap-4">
-          {isLoggedIn ? (
-            <SignOutButton />
-          ) : (
+          {isLoggedIn && (
             <>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="hidden md:flex"
-                onClick={() => navigate("/login")}
+              <Link
+                to="/search"
+                className="text-muted-foreground hover:text-secondary transition-colors"
               >
-                Sign In
-              </Button>
-              <Button size="sm" onClick={() => navigate("/register")}>
-                Sign Up
-              </Button>
+                Hotels
+              </Link>
+              <Link
+                to="/add-hotels"
+                className="text-muted-foreground hover:text-secondary transition-colors"
+              >
+                Dashboard
+              </Link>
+              <Link
+                to="/my-bookings"
+                className="text-muted-foreground hover:text-secondary transition-colors"
+              >
+                Bookings
+              </Link>
             </>
           )}
-        </div>
+        </nav>
+      </div>
+      <div className="flex items-center gap-3">
+        {isLoggedIn ? (
+          <SignOutButton />
+        ) : (
+          <>
+            <Button
+              size="sm"
+              variant="outline"
+              className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white"
+              onClick={() => navigate("/login")}
+            >
+              Sign In
+            </Button>
+            <Button
+              size="sm"
+              className="bg-white text-black hover:bg-white/90"
+              onClick={() => navigate("/register")}
+            >
+              Sign Up
+            </Button>
+          </>
+        )}
       </div>
     </header>
   );
