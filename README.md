@@ -1,42 +1,60 @@
-# Stylion - Hotel Booking Platform
+# 🌐 Stylion — Hotel Booking Platform
 
-Stylion is a modern, full-stack hotel booking application designed for seamless user experiences—from discovering accommodations to booking and payment. It features robust authentication (including Google OAuth), secure APIs, and real-time filtering, all built on a scalable MERN stack architecture.
-
----
-
-##  Tech Stack
-
-- **Frontend:** React.js, TailwindCSS  
-- **Backend:** Node.js, Express.js  
-- **Database:** MongoDB (Mongoose ODM)  
-- **Authentication:** JWT Auth, Google OAuth 2.0  
-- **Deployment:** Docker-ready, supports CI/CD pipelines
-
----
-## Key Features
-
--  **Authentication & Authorization**
-  - Email/password login with JWT
-  - Google OAuth 2.0 (`Continue with Google`)
-  - Protected routes for profile and booking access
-
--  **Advanced Hotel Search**
-  - Filter by city, price range, availability, and ratings
-  - Real-time search for fast discovery
-
-- **User Dashboard**
-  - Manage personal information
-  - View current and historical bookings
-
--  **Booking & Payments**
-  - Backend-ready for payment integration (Stripe, Razorpay)
-  - MongoDB schema includes payment status tracking
-
--  **Modular, Scalable Backend**
-  - Follows MVC architecture
-  - Easy to extend (admin dashboard, notifications, etc.)
+**Stylion** is a modern, full-stack hotel booking application built with the MERN (MongoDB, Express.js, React, Node.js) stack. It offers an intuitive user interface, robust backend architecture, and seamless user experience for discovering, booking, and managing hotel accommodations. 
 
 ---
 
-##  Project Structure
+## 🚀 Tech Stack
+
+| Layer         | Technology                           |
+|---------------|---------------------------------------|
+| **Frontend**  | React.js, TailwindCSS                 |
+| **Backend**   | Node.js, Express.js                   |
+| **Database**  | MongoDB (Mongoose ODM)                |
+| **Auth**      | JWT Auth, Google OAuth 2.0
+
+
+
+## ✨ Features
+
+### 🔐 Authentication & Authorization
+- Email/password login using JWT
+- Google OAuth 2.0 integration
+- Secure, protected routes for bookings and profile
+- Role-based access control (user/admin)
+
+### 🔍 Hotel Search & Filters
+- Real-time search by city, price range, availability, ratings
+- Efficient MongoDB indexing for fast queries
+
+### 👤 User Dashboard
+- View and manage personal profile
+- Check current and past bookings
+- Easy rebooking and cancellation
+
+### 💳 Booking & Payment Infrastructure
+- Backend integration ready for Stripe and Razorpay
+- Payment status tracking in the booking schema
+- Secure and auditable transaction support
+
+### ⚙️ Scalable Backend Architecture
+- Modular MVC structure
+- RESTful APIs with proper error handling
+- Easily extendable with admin dashboard, notifications, etc.
+---
+## 📌 Getting Started
+
+### Prerequisites
+
+- Node.js v22+
+- Docker (optional but recommended)
+- MongoDB Atlas or local MongoDB instance
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/your-username/stylion-booking-platform.git
+cd stylion-booking-platform
+```
+
 
