@@ -17,6 +17,7 @@ import { useAppContext } from "@/contexts/AppContext";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
@@ -187,13 +188,14 @@ export default function RegisterForm() {
               )}
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex flex-col gap-4">
             <Button className="w-full cursor-pointer" type="submit">
               Create an account
             </Button>
           </CardFooter>
         </form>
         <CardContent>
+          <GoogleLoginButton/>
           <p className="text-center">
             Already have an account?
             <Link to={"/login"} className="ml-1 underline font-semibold">

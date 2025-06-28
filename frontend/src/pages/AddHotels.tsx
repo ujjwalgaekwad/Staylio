@@ -20,7 +20,7 @@ const AddHotels = () => {
   };
 
   return (
-    <div>
+    <div className="px-6">
       <ManageHotelForm onSave={onSave} isLoading={isPending} />
     </div>
   );

@@ -9,6 +9,7 @@ import path from "path";
 import { v2 as cloudinary } from "cloudinary";
 import myhotels from "../src/routes/myHotels.routes";
 import searchRoutes from "../src/routes/hotel.routes";
+import oauthRoute from "../src/routes/oauth.routes";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -34,8 +35,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRouter);
 app.use("/api/user", registerRouter);
 app.use("/api/hotels", myhotels);
+app.use("/api", oauthRoute)
 app.use("/api/hotelSearch", searchRoutes);
-
 
 app.listen(process.env.PORT, () => {
   console.log(`server is running at:${process.env.PORT}`);
