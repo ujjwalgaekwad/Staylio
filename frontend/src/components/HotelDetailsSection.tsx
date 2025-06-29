@@ -11,8 +11,7 @@ function HotelDetailsSection() {
   } = useFormContext<HotelFormData>();
 
   return (
-    <div className="flex flex-col mt-4">
-      <div className="w-full ">
+    <div className="flex flex-col">
         <h1 className="text-2xl font-bold mb-5 text-gray-800">Dashboard</h1>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
@@ -111,7 +110,6 @@ function HotelDetailsSection() {
           </div>
         </div>
       </div>
-    </div>
   );
 }
 

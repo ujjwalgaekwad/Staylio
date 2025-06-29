@@ -1,4 +1,4 @@
-# 🌐 Stylion — Hotel Booking Platform
+# 🌐 Stylion — Booking Platform
 
 **Stylion** is a modern, full-stack hotel booking application built with the MERN (MongoDB, Express.js, React, Node.js) stack. It offers an intuitive user interface, robust backend architecture, and seamless user experience for discovering, booking, and managing hotel accommodations. 
 
