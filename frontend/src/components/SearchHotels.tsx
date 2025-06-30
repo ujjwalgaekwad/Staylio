@@ -18,8 +18,9 @@ import { useSearchContext } from "@/contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "@/contexts/AppContext";
 import DatePicker from "react-datepicker";
+import { toast } from "sonner";
 
-const SearchHotels: React.FC = () => {
+function SearchHotels() {
   const navigate = useNavigate();
   const { isLoggedIn } = useAppContext();
   const search = useSearchContext();
@@ -32,7 +33,6 @@ const SearchHotels: React.FC = () => {
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-
     search.saveSearchValues(
       destination,
       checkIn,
@@ -41,146 +41,138 @@ const SearchHotels: React.FC = () => {
       adultCount
     );
 
-    if (!isLoggedIn) {
-      navigate("/register");
-    } else {
-      navigate("/search");
-    }
+    if (!isLoggedIn) return navigate("/register");
+    navigate("/search");
   };
 
-  const handleClear = () => {
-    setDestination("");
-    setCheckIn(new Date());
-    setCheckOut(new Date());
-    setChildCount(0);
-    setAdultCount(1);
+  const handleClearSession = () => {
+    sessionStorage.clear();
+    toast.success("Remove all value in search!");
   };
 
   return (
     <form
       onSubmit={handleSubmit}
-      onReset={handleClear}
-      className="w-full bg-background rounded-xl border p-4 md:p-8 mt-8 flex-1"
-      aria-label="Hotel search form"
+      className="w-full bg-background rounded-xl border p-4 md:p-10 mt-8 flex-1"
     >
-      <Tabs defaultValue="hotels">
-        <TabsContent value="hotels" className="space-y-6">
+      <Tabs defaultValue="hotels" className="w-full">
+        <TabsContent value="hotels" className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-            <InputGroup
-              label="Destination"
-              icon={<MapPin className="mr-2 h-4 w-4" />}
-              inputProps={{
-                id: "destination",
-                placeholder: "Where are you going?",
-                value: destination,
-                onChange: (e) => setDestination(e.target.value),
-                required: true,
-              }}
-            />
-
-            <InputGroup
-              label="Children"
-              icon={<BabyIcon className="mr-2 h-4 w-4" />}
-              inputProps={{
-                id: "children",
-                type: "number",
-                placeholder: "0",
-                value: childCount,
-                min: 0,
-                max: 20,
-                required: true,
-                onChange: (e) =>
-                  setChildCount(parseInt(e.target.value, 10) || 0),
-              }}
-            />
-            <InputGroup
-              label="Adults"
-              icon={<PersonStanding className="mr-2 h-4 w-4" />}
-              inputProps={{
-                id: "adults",
-                type: "number",
-                placeholder: "0",
-                value: adultCount,
-                min: 1,
-                max: 20,
-                required: true,
-                onChange: (e) => setAdultCount(parseInt(e.target.value, 10)),
-              }}
-            />
-            <DateInput
-              label="Check-in"
-              selectedDate={checkIn}
-              onChange={(date) => setCheckIn(date as Date)}
-            />
-            <DateInput
-              label="Check-out"
-              selectedDate={checkOut}
-              onChange={(date) => setCheckOut(date as Date)}
-            />
-            <Button type="submit" aria-label="Search hotels">
-              <Search className="h-4 w-4 mr-2" />
+            <div className="space-y-2">
+              <Label htmlFor="location">Destination</Label>
+              <div className="relative">
+                <MapPin className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  required
+                  type="text"
+                  value={destination}
+                  onChange={(e) => setDestination(e.target.value)}
+                  id="location"
+                  placeholder="Where are you going?"
+                  className="pl-8"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="location">Children</Label>
+              <div className="relative">
+                <BabyIcon className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  required
+                  type="number"
+                  max={20}
+                  min={0}
+                  value={childCount}
+                  onChange={(e) => setChildCount(parseInt(e.target.value))}
+                  id="location"
+                  placeholder="Where are you going?"
+                  className="pl-8"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="location">Adult</Label>
+              <div className="relative">
+                <PersonStanding className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+                <Input
+                  required
+                  type="number"
+                  max={20}
+                  min={1}
+                  value={adultCount}
+                  onChange={(e) => setAdultCount(parseInt(e.target.value))}
+                  id="location"
+                  placeholder="Where are you going?"
+                  className="pl-8"
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label>Check-in</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !checkIn && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {checkIn ? format(checkIn, "PPP") : "Select date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <DatePicker
+                    selected={checkIn}
+                    onChange={(date) => setCheckIn(date as Date)}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className="space-y-2">
+              <Label>Check-out</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !checkOut && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {checkOut ? format(checkOut, "PPP") : "Select date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <DatePicker
+                    selected={checkOut}
+                    onChange={(date) => setCheckOut(date as Date)}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+          <div className="md:flex gap-2 space-y-2">
+            <Button className="w-full md:w-auto cursor-pointer" type="submit">
+              <Search className="h-4 w-4" />
               Search Hotels
             </Button>
             <Button
-              variant="delete"
+              variant={"delete"}
+              className="w-full md:w-auto cursor-pointer"
               type="reset"
-              aria-label="Clear search fields"
+              onClick={handleClearSession}
             >
-              <Delete className="h-4 w-4 mr-2" />
-              Clear All
+              <Delete className="h-4 w-4" />
+              Clear all
             </Button>
           </div>
         </TabsContent>
       </Tabs>
     </form>
   );
-};
+}
 
 export default SearchHotels;
-
-interface InputGroupProps {
-  label: string;
-  icon: React.ReactNode;
-  inputProps: React.InputHTMLAttributes<HTMLInputElement>;
-}
-
-const InputGroup: React.FC<InputGroupProps> = ({ label, icon, inputProps }) => (
-  <div className="space-y-2">
-    <Label htmlFor={inputProps.id}>{label}</Label>
-    <div className="relative">
-      <span className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground">
-        {icon}
-      </span>
-      <Input className="pl-8" {...inputProps} />
-    </div>
-  </div>
-);
-
-interface DateInputProps {
-  label: string;
-  selectedDate: Date;
-  onChange: (date: Date) => void;
-}
-
-const DateInput: React.FC<DateInputProps> = ({ label, selectedDate }) => (
-  <div className="space-y-2">
-    <Label>{label}</Label>
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          className={cn(
-            "w-full justify-start text-left font-normal",
-            !selectedDate && "text-muted-foreground"
-          )}
-        >
-          <CalendarIcon className="mr-2 h-4 w-4" />
-          {selectedDate ? format(selectedDate, "PPP") : "Select date"}
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-auto p-0">
-        <DatePicker selected={selectedDate} inline />
-      </PopoverContent>
-    </Popover>
-  </div>
-);

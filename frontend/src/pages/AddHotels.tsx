@@ -20,7 +20,9 @@ const AddHotels = () => {
   };
 
   return (
+    <div className="py-6">
       <ManageHotelForm onSave={onSave} isLoading={isPending} />
+    </div>
   );
 };
 

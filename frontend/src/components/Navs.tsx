@@ -4,7 +4,7 @@ import { Button } from "./ui/button";
 import { useAppContext } from "@/contexts/AppContext";
 import SignOutButton from "./SignOutButton";
 
-function NavigationBar() {
+function Navs() {
   const navigate = useNavigate();
   const location = useLocation();
   const { isLoggedIn } = useAppContext();
@@ -85,4 +85,4 @@ function NavigationBar() {
   );
 }
 
-export default NavigationBar;
+export default Navs;

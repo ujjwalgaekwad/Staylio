@@ -1,14 +1,12 @@
-import SearchHotels from "@/components/SearchHotels";
 import FeaturedDestinations from "@/components/FeaturedDestinations";
-import SpecialOffers from "@/components/SpecialOffers";
-import Rewards from "@/components/Rewards";
 import HeroCard from "@/components/Hero";
+import Rewards from "@/components/Rewards";
+import SpecialOffers from "@/components/SpecialOffers";
 
 function Hero() {
   return (
-    <div className="">
+    <div>
       <HeroCard />
-      <SearchHotels/>
       <FeaturedDestinations />
       <SpecialOffers />
       <Rewards />

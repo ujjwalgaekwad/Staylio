@@ -1,10 +1,10 @@
 import Footer from "@/components/Footer";
-import NavigationBar from "@/components/NavigationBar";
+import Navs from "@/components/Navs";
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
-      <NavigationBar/>
+      <Navs/>
       <main>{children}</main>
       <Footer isPrimary={false} />
     </div>

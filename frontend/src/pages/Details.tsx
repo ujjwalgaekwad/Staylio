@@ -13,18 +13,23 @@ const Details = () => {
   });
 
   return (
-    <div className="space-y-8 px-4 py-6">
+    <div className="py-6">
       <div className="space-y-2">
         <div className="flex items-center gap-1 text-yellow-500">
           {Array.from({ length: hotelData?.starRating || 0 }).map((_, i) => (
             <Star key={i} className="w-4 h-4 fill-yellow-400" />
           ))}
         </div>
-        <h1 className="text-3xl font-bold text-foreground">{hotelData?.name || "TAj Sky"}</h1>
+        <h1 className="text-3xl font-bold text-foreground">
+          {hotelData?.name || "TAj Sky"}
+        </h1>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {hotelData?.imageUrls.map((image, index) => (
-          <div key={index} className="rounded-xl overflow-hidden h-60 shadow-md">
+          <div
+            key={index}
+            className="rounded-xl overflow-hidden h-60 shadow-md"
+          >
             <img
               src={image}
               alt={hotelData?.name}

@@ -4,7 +4,11 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import * as auth from "@/utils/api";
 import { useAppContext } from "@/contexts/AppContext";
 
-function SignOutButton() {
+interface Props {
+  scrolled: boolean;
+}
+
+function SignOutButton({ scrolled }: Props) {
   const queryClient = useQueryClient();
   const { showToast } = useAppContext();
   const mutation = useMutation({
@@ -28,7 +32,9 @@ function SignOutButton() {
         onClick={handleClick}
         size="sm"
         variant="outline"
-        className="bg-white/10 text-white border-white/20 hover:bg-white/20 hover:text-white cursor-pointer"
+        className={`bg-white/10 text-white border-white/20 cursor-pointer ${
+          !!scrolled && "bg-black"
+        }`}
       >
         <LogOut />
         Log out
