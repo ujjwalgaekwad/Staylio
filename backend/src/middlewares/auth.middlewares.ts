@@ -10,8 +10,7 @@ declare global {
 }
 
 const verifyToken = (req: Request, res: Response, next: NextFunction): void => {
-  const token = req.cookies.authToken;
-
+  const token = req.cookies?.authToken;
   if (!token) {
     res.status(401).json({ message: "Undefined token" });
     return;

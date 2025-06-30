@@ -3,7 +3,7 @@ import { useAppContext } from "./contexts/AppContext";
 import Layout from "./layouts/Layout";
 import RegisterForm from "./pages/Register";
 import LoginForm from "./pages/SignIn";
-import HomePage from "./pages/HomePage";
+import Home from "./pages/Home";
 import AddHotels from "./pages/AddHotels";
 import NotFound from "./pages/NotFound";
 import Hotels from "./pages/Hotels";
@@ -22,7 +22,7 @@ function App() {
           path="/"
           element={
             <Layout>
-              <HomePage />
+              <Home />
             </Layout>
           }
         />

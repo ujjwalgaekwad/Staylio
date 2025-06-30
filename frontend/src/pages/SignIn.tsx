@@ -17,6 +17,7 @@ import * as apiClient from "../utils/api";
 import { useAppContext } from "@/contexts/AppContext";
 import { useState } from "react";
 import { Eye, EyeClosed } from "lucide-react";
+import GoogleLoginButton from "@/components/GoogleLoginButton";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState<Boolean>(false);
@@ -109,12 +110,10 @@ export default function LoginForm() {
             <Button type="submit" className="w-full cursor-pointer">
               Sign In
             </Button>
-            <Button type="button" variant="outline" className="w-full">
-              Continue with Google
-            </Button>
           </CardFooter>
         </form>
         <CardContent>
+          <GoogleLoginButton />
           <p className="text-center">
             Don't have an account?
             <Link to={"/register"} className="ml-1 underline font-semibold">

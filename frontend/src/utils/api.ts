@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   BookingFormData,
   HotelSearchResponse,
@@ -227,15 +228,36 @@ export const createBooking = async (
   return response.json();
 };
 
-
-export const myBookingData = async() => {
+export const myBookingData = async () => {
   const response = await fetch(`${apiRoutes.searchHotels}/mybookings`, {
-    credentials: "include"
+    credentials: "include",
   });
 
-  if(!response.ok) {
-    throw new Error("Booking data not found")
+  if (!response.ok) {
+    throw new Error("Booking data not found");
   }
 
   return response.json();
-}
+};
+
+export const SignInWithGoogle = async (credentialReponse: any) => {
+  try {
+    const response = await axios.post(
+      `${apiRoutes.google}`,
+      JSON.stringify({ token: credentialReponse.credentials }),
+      {
+        headers: {
+          "Content-Type": "application/json"
+        },
+      }
+    );
+
+    if(!response.data){
+      throw new Error("Data not found");
+    }
+
+    return response.data;
+  } catch (error) {
+    console.log("Google signin error:", error);
+  }
+};

@@ -3,6 +3,8 @@ import { validationResult } from "express-validator";
 import { User } from "../models/user.model";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { Auth } from "../models/auth.model";
+import axios from "axios";
 
 const auth = async (req: Request, res: Response): Promise<void> => {
   const errors = validationResult(req);
@@ -100,4 +102,51 @@ const fetchCurrentUser = async (req: Request, res: Response) => {
   }
 };
 
-export { auth, register, fetchCurrentUser };
+const authWithGoogle = async (req: Request, res: Response) => {
+  const { token: accessToken } = req.body;
+
+  try {
+    const googleUser = await axios.get(
+      "https://www.googleapis.com/oauth2/v3/userinfo",
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    const { sub, email, name, picture } = googleUser.data;
+
+    let user = await Auth.findOne({ googleId: sub });
+    if (!user) {
+      user = await Auth.create({ googleId: sub, email, name, picture });
+    }
+
+    const jwtToken = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_SECRET_KEY as string,
+      { expiresIn: "7d" }
+    );
+
+    res.cookie("authToken", jwtToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000
+    })
+
+    res.status(200).json({
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        picture: user.picture,
+      },
+    });
+  } catch (error) {
+    console.error("Google Auth error:", error);
+    res.status(500).json({ message: "Google authentication failed." });
+  }
+};
+
+export { auth, register, fetchCurrentUser, authWithGoogle };
