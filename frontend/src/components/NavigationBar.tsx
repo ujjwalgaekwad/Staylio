@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { useAppContext } from "@/contexts/AppContext";
-import SignOutButton from "./SignOutButton";
+import Profile from "./Profile";
 
 function NavigationBar() {
   const navigate = useNavigate();
@@ -20,7 +20,7 @@ function NavigationBar() {
     };
 
     if (!isHomePage) {
-      setScrolled(true); 
+      setScrolled(true);
     } else {
       setScrolled(window.scrollY > 10);
       window.addEventListener("scroll", handleScroll);
@@ -36,24 +36,21 @@ function NavigationBar() {
       }`}
     >
       <div className="container mx-auto flex justify-between items-center px-4 py-4 md:px-8">
-        <Link to="/" className="text-2xl font-bold tracking-tight">
-          Staylio
-        </Link>
-        <nav className="hidden md:flex gap-6 text-sm font-medium">
-          <Link to="/">
-            Home
-          </Link>
-          {isLoggedIn && (
-            <>
-              <Link to="/search">Hotels</Link>
-              <Link to="/add-hotels">Dashboard</Link>
-              <Link to="/my-bookings">Bookings</Link>
-            </>
-          )}
-        </nav>
+        <div className="flex justify-between items-center gap-4">
+          <div className="flex justify-center items-center">
+            <img className="h-10" src="./Staylio.png" alt="Logo" />
+            <Link to="/" className="hidden md:block text-2xl font-bold tracking-tight">
+              Staylio
+            </Link>
+          </div>
+          <nav className="hidden md:flex gap-4 text-sm font-medium">
+            <Link to="/">Home</Link>
+            {isLoggedIn && <Link to="/search">Hotels</Link>}
+          </nav>
+        </div>
         <div className="flex items-center gap-3">
           {isLoggedIn ? (
-            <SignOutButton scrolled={scrolled}/>
+            <Profile />
           ) : (
             <>
               <Button

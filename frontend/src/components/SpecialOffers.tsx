@@ -15,7 +15,7 @@ function SpecialOffers() {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card className="overflow-hidden border-0">
             <div className="flex flex-col md:flex-row h-full">
               <div className="md:w-2/5 h-[200px] md:h-auto">
                 <img
@@ -37,11 +37,11 @@ function SpecialOffers() {
                 </div>
                 <div>
                   <div className="flex items-center mb-4">
-                    <span className="text-2xl font-bold">$599</span>
+                    <span className="text-2xl font-bold">599</span>
                     <span className="text-muted-foreground line-through ml-2">
-                      $899
+                      899
                     </span>
-                    <span className="ml-2 text-green-600 font-medium text-sm">Save $300</span>
+                    <span className="ml-2 text-green-600 font-medium text-sm">Save 300</span>
                   </div>
                   <Button className="w-full md:w-auto">Book Now</Button>
                 </div>
@@ -49,7 +49,7 @@ function SpecialOffers() {
             </div>
           </Card>
           
-          <Card className="overflow-hidden border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+          <Card className="overflow-hidden border-0">
             <div className="flex flex-col md:flex-row h-full">
               <div className="md:w-2/5 h-[200px] md:h-auto">
                 <img
