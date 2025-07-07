@@ -7,9 +7,9 @@ import registerRouter from "./routes/user.routes";
 import authRouter from "./routes/auth.routes";
 import path from "path";
 import { v2 as cloudinary } from "cloudinary";
-import myhotels from "../src/routes/myHotels.routes";
-import searchRoutes from "../src/routes/hotel.routes";
-import oauthRoute from "../src/routes/oauth.routes";
+import myhotels from "./routes/myHotels.routes";
+import searchRoutes from "./routes/hotel.routes";
+import oauthRoute from "./routes/oauth.routes";
 
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
