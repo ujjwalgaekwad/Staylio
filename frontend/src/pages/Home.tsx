@@ -7,9 +7,11 @@ function Hero() {
   return (
     <div>
       <HeroCard />
-      <FeaturedDestinations />
-      <SpecialOffers />
-      <Rewards />
+      <div className="flex flex-col justify-center items-center">
+       <FeaturedDestinations />
+       <SpecialOffers />
+       <Rewards />
+     </div>
     </div>
   );
 }

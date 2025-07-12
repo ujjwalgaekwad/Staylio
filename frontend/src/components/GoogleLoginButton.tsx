@@ -3,8 +3,10 @@ import { useGoogleLogin } from "@react-oauth/google";
 import { apiRoutes } from "@/utils/apiRoutes";
 import { toast } from "sonner";
 import axios from "axios";
+import { useState } from "react";
 
 function GoogleLoginButton() {
+  const [data, setData] = useState();
   const login = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
@@ -14,8 +16,9 @@ function GoogleLoginButton() {
           { token: access_token },
           { withCredentials: true }
         );
-        window.location.href = "/";
         toast.success(`Welcome ${res.data.user.name}`);
+        setData(res.data);
+        window.location.href = "/";
       } catch (err) {
         toast.error("Login failed");
         alert("Login failed. Please try again.");
@@ -24,7 +27,6 @@ function GoogleLoginButton() {
     onError: () => {},
     flow: "implicit",
   });
-
   return (
     <Button
       onClick={() => login()}

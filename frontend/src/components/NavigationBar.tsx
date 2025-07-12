@@ -39,7 +39,10 @@ function NavigationBar() {
         <div className="flex justify-between items-center gap-4">
           <div className="flex justify-center items-center">
             <img className="h-10" src="./Staylio.png" alt="Logo" />
-            <Link to="/" className="hidden md:block text-2xl font-bold tracking-tight">
+            <Link
+              to="/"
+              className="hidden md:block text-2xl font-bold tracking-tight"
+            >
               Staylio
             </Link>
           </div>
@@ -50,7 +53,7 @@ function NavigationBar() {
         </div>
         <div className="flex items-center gap-3">
           {isLoggedIn ? (
-            <Profile />
+             <Profile />
           ) : (
             <>
               <Button
@@ -59,7 +62,7 @@ function NavigationBar() {
                 className={`transition-all ${
                   scrolled
                     ? "bg-white text-black border-gray-300"
-                    : "bg-white/10 text-white border-white/20 hover:bg-white/20"
+                    : "bg-white/10 text-white border-white/20"
                 }`}
                 onClick={() => navigate("/login")}
               >
@@ -67,12 +70,13 @@ function NavigationBar() {
               </Button>
               <Button
                 size="sm"
+                variant={"secondary"}
                 className={`transition-all ${
-                  scrolled ? "bg-black text-white" : "bg-white text-black"
+                  scrolled ? "bg-black hover:bg-[#101010] text-white" : ""
                 }`}
                 onClick={() => navigate("/register")}
               >
-                Sign Up
+                Register
               </Button>
             </>
           )}

@@ -13,7 +13,7 @@ const BookingData = () => {
   }
 
   return (
-    <div>
+    <div className="relative top-20 mx-auto container px-4 md:px-6">
       {isLoading ? (
         <div className="space-y-8 animate-pulse">
           {[1, 2, 3].map((i) => (
@@ -42,17 +42,16 @@ const BookingData = () => {
         </div>
       ) : (
         <div className="space-y-10 px-4 lg:px-0">
-          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight border-b pb-3">
+          <h1 className="text-4xl font-extrabold text-gray-900 tracking-tight">
             My Bookings
           </h1>
-
           {bookingData?.length === 0 ? (
             <p className="text-gray-600 text-lg">No bookings found.</p>
           ) : (
             bookingData?.map((hotel: any) => (
               <div
                 key={hotel.name}
-                className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 border border-gray-200 bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-200"
+                className="grid grid-cols-1 lg:grid-cols-[1fr_2fr] gap-6 border border-gray-200 bg-white rounded-2xl p-6 transition-all duration-200"
               >
                 {/* Hotel Image */}
                 <div className="w-full h-64 lg:h-52 rounded-lg overflow-hidden border">

@@ -66,7 +66,7 @@ const SearchData = () => {
   };
 
   return (
-    <div className="flex gap-6 px-6 py-8">
+    <div className="flex container mx-auto px-4 md:px-6">
       <div className="md:w-1/4 w-full sticky top-16 self-start p-4 bg-white shadow rounded-lg space-y-6 border border-gray-200">
         <h1 className="text-lg font-semibold text-gray-800 border-b pb-2">
           Filter By:
@@ -86,11 +86,7 @@ const SearchData = () => {
         />
       </div>
       <div className="w-3/4 mt-10">
-        <div className="flex justify-between">
-          {hotelData?.pagination.total} found in
-          {hotelData?.data.map((cityName, index) => (
-            <h1 key={index}>{cityName.city}</h1>
-          ))}
+        <div className="text-end">
           <select
             title="Sort by"
             className="px-4 py-2 border rounded-md"
